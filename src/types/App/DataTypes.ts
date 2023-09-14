@@ -1,0 +1,1 @@
+export type EntityStates = "home" | "contacts" | "logins" | "paymentCards" | "wifiPasswords" | "trash" | "favorites";
