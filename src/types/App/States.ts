@@ -1,5 +1,5 @@
 import type { Dictionary } from "@/types/Types";
-import type { PIDI } from "@/types/Data/Base";
+import type { PIDI, BaseEntityMeta } from "@/types/Data/Base";
 import type { Error } from "@/types/App/Error";
 
 export type Status = "idle" | "loading" | "succeeded" | "failed";
@@ -18,3 +18,5 @@ export interface StatePreferences<S = undefined> {
 export interface PureState<T extends PIDI> {
     items: Dictionary<T>;
 }
+
+export interface EntityState<T extends BaseEntityMeta, S = undefined> extends PureState<T>, StatePreferences<S> {}

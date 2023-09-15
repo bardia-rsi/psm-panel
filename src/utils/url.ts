@@ -1,0 +1,1 @@
+export const trim = (url: string): string => url.replace(/^\\+\\+$/g, "")

@@ -18,3 +18,9 @@ export interface Timestamps {
 }
 
 export interface BaseMeta extends Timestamps, PIDI {}
+
+export interface BaseEntityMeta extends PIDI {
+    note: string | null;
+    favorite: string | number | null;
+    trash: string | number | null;
+}
