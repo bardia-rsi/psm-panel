@@ -17,6 +17,19 @@ interface LoginBase {
     address: string | null;
 }
 
+export interface LoginCreatePayload extends RequiredKeys<Partial<LoginBase & BaseEntityMeta>, "url"> {
+    company: PIDR | Company;
+    password?: {
+        current: string;
+    }
+}
+
+export interface LoginUpdatePayload extends RequiredKeys<RecursivePartial<LoginCreatePayload>, "pid"> {
+    password?: {
+        current: string;
+    }
+}
+
 export interface LoginMeta extends LoginBase, Timestamps, BaseEntityMeta {
     company: Company;
     password: {

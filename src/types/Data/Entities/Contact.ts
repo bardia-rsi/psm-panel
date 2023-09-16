@@ -9,6 +9,10 @@ interface ContactBase {
     website: string | null;
 }
 
+export interface ContactCreatePayload extends RequiredKeys<Partial<ContactBase & BaseEntityMeta>, "name" | "phoneNumber"> {}
+
+export interface ContactUpdatePayload extends RequiredKeys<Partial<ContactCreatePayload>, "pid"> {}
+
 export interface ContactMeta extends ContactBase, BaseEntityMeta, Timestamps {}
 
 export interface ContactMetaWithType extends ContactMeta {

@@ -9,6 +9,12 @@ interface PaymentCardBase {
     expiration: string | null;
 }
 
+export interface PaymentCardCreatePayload extends RequiredKeys<Partial<PaymentCardBase & BaseEntityMeta>, "owner" | "cardNumber"> {
+    bank: PIDR | Company;
+}
+
+export interface PaymentCardUpdatePayload extends RequiredKeys<Partial<PaymentCardCreatePayload>, "pid"> {}
+
 export interface PaymentCardMeta extends PaymentCardBase, BaseEntityMeta, Timestamps {
     bank: Company;
 }
