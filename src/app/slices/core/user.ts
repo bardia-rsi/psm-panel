@@ -7,7 +7,7 @@ import { asyncThunkPayloadCreator } from "@/helpers/thunk";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { setLoadingStatus, setFailedStatus } from "../../common/extraReducers";
 
-interface State extends Omit<StatePreferences, "sortBy" | "order">{
+export interface State extends Omit<StatePreferences, "sortBy" | "order">{
     data: UserMeta;
 }
 
