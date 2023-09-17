@@ -9,6 +9,12 @@ export type EntityItemWithType =
     PaymentCard.PaymentCardMetaWithType |
     WifiPassword.WifiPasswordMetaWithType;
 
+export type StoredEntityItem =
+    Contact.ContactMeta |
+    Login.LoginStored |
+    PaymentCard.PaymentCardStored |
+    WifiPassword.WifiPasswordMeta;
+
 export type StoreEntityItemWithType =
     Contact.ContactMetaWithType |
     Login.LoginStoredWithType |
