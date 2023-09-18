@@ -1,0 +1,70 @@
+@tailwind base;
+
+@layer base {
+
+    ::-webkit-scrollbar {
+        @apply w-1.5;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-tertiary;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-fourth rounded-lg;
+    }
+
+    *, *:before, *:after {
+        @apply transition-colors duration-300;
+        scrollbar-color: rgb(var(--bg-fourth)) rgb(var(--bg-tertiary));
+    }
+
+    html {
+        @apply bg-primary text-primary font-body;
+    }
+
+    #root {
+        @apply flex flex-row;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply text-primary font-head;
+    }
+
+    h1 {
+        @apply text-5xl;
+    }
+
+    h2 {
+        @apply text-4xl;
+    }
+
+    h3 {
+        @apply text-3xl;
+    }
+
+    h4 {
+        @apply text-2xl;
+    }
+
+    h5 {
+        @apply text-xl;
+    }
+
+    h6 {
+        @apply text-base;
+    }
+
+    p {
+        @apply text-secondary;
+    }
+
+    button, input, textarea, select {
+        @apply font-body;
+    }
+
+    hr {
+        @apply w-full my-4 border-0 border-b-[0.0625rem] border-secondary;
+    }
+
+}

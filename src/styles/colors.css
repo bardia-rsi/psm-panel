@@ -1,0 +1,46 @@
+:root {
+    --white: 247 247 247;
+    --black: 8 8 8;
+}
+
+[theme="dark"] {
+    --ac-primary-500: 23 93 220;
+    --ac-primary-600: 21 84 198;
+
+    --bg-primary: 17 17 17;
+    --bg-secondary: 30 30 30;
+    --bg-tertiary: 43 43 43;
+    --bg-fourth: 55 55 55;
+
+    --tx-primary: 242 242 242;
+    --tx-secondary: 191 191 191;
+    --tx-tertiary: 140 140 140;
+
+    --ic-primary: 242 242 242;
+    --ic-secondary: 140 140 140;
+
+    --br-primary: 4 4 4;
+    --br-secondary: 45 45 45;
+
+}
+
+[theme="light"] {
+
+    --ac-primary-500: 22 91 215;
+    --ac-primary-600: 20 81 193;
+
+    --bg-primary: 242 242 242;
+    --bg-secondary: 230 230 230;
+    --bg-tertiary: 217 217 217;
+    --bg-fourth: 204 204 204;
+
+    --tx-primary: 17 17 17;
+    --tx-secondary: 64 64 64;
+    --tx-tertiary: 128 128 128;
+
+    --ic-primary: 17 17 17;
+    --ic-secondary: 128 128 128;
+
+    --br-primary: 191 191 191;
+    --br-secondary: 224 224 224;
+}
