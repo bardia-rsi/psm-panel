@@ -1,9 +1,13 @@
 import type { FC, ReactElement } from "react";
+import SidebarContextProvider from "@/layouts/Sidebar/Context";
 import ThemeContextProvider from "@/context/Theme";
+import Sidebar from "@/layouts/Sidebar";
 
 const Root: FC = (): ReactElement => (
     <ThemeContextProvider>
-        Hello World!
+        <SidebarContextProvider>
+            <Sidebar />
+        </SidebarContextProvider>
     </ThemeContextProvider>
 );
 
