@@ -11,6 +11,7 @@
     --bg-secondary: 30 30 30;
     --bg-tertiary: 43 43 43;
     --bg-fourth: 55 55 55;
+    --bg-full: 0 0 0;
 
     --tx-primary: 242 242 242;
     --tx-secondary: 191 191 191;
@@ -33,6 +34,7 @@
     --bg-secondary: 230 230 230;
     --bg-tertiary: 217 217 217;
     --bg-fourth: 204 204 204;
+    --bg-full: 255 255 255;
 
     --tx-primary: 17 17 17;
     --tx-secondary: 64 64 64;

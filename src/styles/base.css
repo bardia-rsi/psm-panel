@@ -67,4 +67,36 @@
         @apply w-full my-4 border-0 border-b-[0.0625rem] border-secondary;
     }
 
+    input, textarea {
+        @apply appearance-none bg-tertiary;
+    }
+
+    input:not(:is([type="radio"], [type="checkbox"])), textarea {
+        @apply w-full text-base outline-none rounded-lg;
+    }
+
+    input[type="radio"] {
+        @apply w-5 h-5 relative cursor-pointer
+    }
+
+    input[type="radio"] {
+        @apply rounded-full
+        before:content-[""] before:w-[0.6rem] before:h-[0.6rem] before:bg-white before:rounded-full
+        before:opacity-0 before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2
+        before:-translate-y-1/2
+        checked:bg-ac-primary-500 checked:before:opacity-100;
+    }
+
+    .animate-searching {
+        animation: searching 1.5s linear reverse infinite forwards;
+        -o-animation: searching 1.5s linear reverse infinite forwards;
+        -moz-animation: searching 1.5s linear reverse infinite forwards;
+        -webkit-animation: searching 1.5s linear reverse infinite forwards;
+    }
+
+    @keyframes searching {
+        from { transform: translateY(-0.5rem) rotate(0deg) translateX(0.125rem) rotate(0deg); }
+        to   { transform: translateY(-0.5rem) rotate(360deg) translateX(0.125rem) rotate(-360deg); }
+    }
+
 }
