@@ -20,3 +20,9 @@ export type StoreEntityItemWithType =
     Login.LoginStoredWithType |
     PaymentCard.PaymentCardStoredWithType |
     WifiPassword.WifiPasswordMetaWithType;
+
+export type EntityItemCreatePayload =
+    Contact.ContactCreatePayload |
+    Login.LoginCreatePayload |
+    PaymentCard.PaymentCardCreatePayload |
+    WifiPassword.WifiPasswordCreatePayload;

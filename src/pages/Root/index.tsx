@@ -3,6 +3,7 @@ import { useLocation, useOutlet } from "react-router-dom";
 import { Fragment } from "react";
 import { AnimatePresence } from "framer-motion";
 import ThemeContextProvider from "@/context/Theme";
+import ToastContextProvider from "@/components/ui/Toast";
 import SidebarContextProvider from "@/layouts/Sidebar/Context";
 import Sidebar from "@/layouts/Sidebar";
 
@@ -15,14 +16,16 @@ const Root: FC = (): ReactElement => {
 
     return (
         <ThemeContextProvider>
-            <SidebarContextProvider>
-                <Sidebar />
-                <AnimatePresence mode="wait">
-                    <Fragment key={locationArr[1]}>
-                        { currentOutlet }
-                    </Fragment>
-                </AnimatePresence>
-            </SidebarContextProvider>
+            <ToastContextProvider>
+                <SidebarContextProvider>
+                    <Sidebar />
+                    <AnimatePresence mode="wait">
+                        <Fragment key={locationArr[1]}>
+                            { currentOutlet }
+                        </Fragment>
+                    </AnimatePresence>
+                </SidebarContextProvider>
+            </ToastContextProvider>
         </ThemeContextProvider>
     );
 
