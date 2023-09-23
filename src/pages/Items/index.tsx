@@ -1,7 +1,7 @@
 import type { FC, ReactElement, ChangeEvent } from "react";
 import type { EntityStates, EntityStateTypes } from "@/types/App/DataTypes";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Fragment, useState } from "react";
+import { useParams, useLocation, useOutlet } from "react-router-dom";
 import { camelCase } from "lodash";
 import { AnimatePresence, motion } from "framer-motion";
 import cn from "classnames";
@@ -17,6 +17,14 @@ const ItemsPage: FC = (): ReactElement => {
     const [modelIsOpen, setModelIsOpen] = useState<boolean>(false);
     const [query, setQuery] = useState<string>("");
     const params = useParams<"type">();
+    const location = useLocation();
+    const currentOutlet = useOutlet();
+
+    const locationArr = location?.pathname.split("/") ?? [];
+
+    if (!["contacts", "logins", "payment-cards", "wifi-passwords"].includes(params.type!)) {
+
+    }
 
     const page = camelCase(params.type) as EntityStates;
     const entityPage: EntityStateTypes | undefined = page !== "home" && page !== "trash" && page !== "favorites"
@@ -64,6 +72,11 @@ const ItemsPage: FC = (): ReactElement => {
                 }
             </motion.div>
             { entityPage && <Form setModelIsOpen={setModelIsOpen} modelIsOpen={modelIsOpen} page={entityPage} /> }
+            <AnimatePresence mode="wait">
+                <Fragment key={locationArr[2]}>
+                    { currentOutlet }
+                </Fragment>
+            </AnimatePresence>
         </>
     )
 
