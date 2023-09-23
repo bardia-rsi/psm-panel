@@ -6,7 +6,7 @@ import type { EntityStates, EntityTypes } from "@/types/App/DataTypes";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { camelCase } from "lodash";
+import { camelCase, startCase, last, get } from "lodash";
 import { normalize } from "normalizr";
 import cn from "classnames";
 import { entity } from "@/app/schemas/entity";
@@ -21,6 +21,7 @@ import HeaderButton from "@/pages/Detail/HeaderButton";
 import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
 import Logo from "@/components/Logo";
+import Record from "@/pages/Detail/Record";
 
 interface ItemMeta {
     logo: LogoProps;
@@ -265,6 +266,32 @@ const Detail: FC = (): ReactElement => {
                                 </Button>
                             </div>
                             <hr />
+                            {
+                                itemMeta.records.map(key => {
+
+                                    const value: string = get(item, key);
+                                    const isDateFields: boolean = ["createdAt", "updatedAt", "lastUsed"].includes(key);
+
+                                    return (
+                                        <Record key={key}
+                                                title={startCase(key.split(".")[0])}
+                                                text={(value || "Not Set")}
+                                                hover={!isDateFields}
+                                                copy={value ? !isDateFields : false}
+                                                hide={key.includes("password") || key.includes("cvv")} />
+                                    )
+
+                                })
+                            }
+                            {
+                                itemMeta.footer && (
+                                    <>
+                                        <hr/>
+                                        <Record title={startCase(last(itemMeta.footer.split(".")))}
+                                                text={get(item, itemMeta.footer) || "Not Set"} />
+                                    </>
+                                )
+                            }
                         </>
                     )
             }
