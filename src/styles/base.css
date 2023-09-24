@@ -75,8 +75,8 @@
         @apply w-full text-base outline-none rounded-lg;
     }
 
-    input[type="radio"] {
-        @apply w-5 h-5 relative cursor-pointer
+    input[type="radio"], input[type="checkbox"] {
+        @apply min-w-[1.25rem] min-h-[1.25rem] max-w-[1.25rem] max-h-5 w-5 h-5 relative cursor-pointer
     }
 
     input[type="radio"] {
@@ -85,6 +85,34 @@
         before:opacity-0 before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2
         before:-translate-y-1/2
         checked:bg-ac-primary-500 checked:before:opacity-100;
+    }
+
+    input[type="checkbox"] {
+        @apply rounded-md;
+    }
+
+    input[type="checkbox"]:before, input[type="checkbox"]:after {
+        @apply content-[""] w-0.5 block bg-white rounded-md absolute opacity-0 transition duration-300;
+    }
+
+    input[type="checkbox"]:before {
+        @apply h-3 top-1/2 left-[60%] -translate-x-1/2 -translate-y-1/2 rotate-45;
+    }
+
+    input[type="checkbox"]:after {
+        @apply h-[0.3125rem] top-[63%] left-[27%] -translate-x-1/2 -translate-y-1/2 rotate-[135deg]
+    }
+
+    input[type="checkbox"]:checked {
+        @apply bg-ac-primary-500 before:opacity-100 after:opacity-100;
+    }
+
+    input[type="range"] {
+        @apply w-full h-2.5 bg-tertiary bg-gradient-to-r from-ac-primary-500 to-ac-primary-500 bg-no-repeat rounded-xl cursor-pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+        @apply w-5 h-5 bg-ac-primary-500 rounded-full appearance-none cursor-ew-resize;
     }
 
     .animate-searching {

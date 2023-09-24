@@ -1,6 +1,6 @@
 import type { Dictionary } from "@/types/Types";
 import type { Order } from "@/types/App/States";
-import { sortBy } from "lodash";
+import { sortBy, random } from "lodash";
 
 export const sort = <T extends Dictionary>(items: T[], sort: string, order: Order): T[] => {
 
@@ -13,5 +13,13 @@ export const sort = <T extends Dictionary>(items: T[], sort: string, order: Orde
     items.sort((a, b) => new Date(b[sort]).getTime() - new Date(a[sort]).getTime());
 
     return order === "asc" ? items : items.reverse();
+
+}
+
+export const sampleI = <T>(arr: Array<T>): [number, T] => {
+
+    const index = random(0, arr.length - 1);
+
+    return [index, arr[index]];
 
 }

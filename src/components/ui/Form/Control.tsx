@@ -69,7 +69,7 @@ const Control: FC<Props> = (
                                className
                            )}
                            {...omit(rest, "className")} />
-                    <Label as={as} name={name} label={String(label)} />
+                    <Label as={as} type={type} name={name} label={String(label)} />
                     {
                         type === "password" && (
                             <Tooltip content={visibility ? "Show" : "Hidden"}

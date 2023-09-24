@@ -10,9 +10,13 @@ interface Props extends PartialBy<ControlProps, "label" > {
     children?: ReactNode;
 }
 
-const Group: FC<Props> = ({ groupClass, name, label = name, children, ...rest }): ReactElement => (
-    <div className={cn("flex flex-1 flex-col gap-y-1", groupClass)}>
-        <Control name={name} label={label} {...rest} />
+const Group: FC<Props> = ({ groupClass, type, name, label = name, children, ...rest }): ReactElement => (
+    <div className={cn(
+        "flex flex-1 gap-y-1",
+        type !== "radio" ? "flex-col" : "items-center",
+        groupClass
+    )}>
+        <Control type={type} name={name} label={label} {...rest} />
         { children }
         <ErrorMessage name={name} />
     </div>

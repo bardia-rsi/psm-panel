@@ -49,9 +49,10 @@ const Field = forwardRef<HTMLInputElement | HTMLTextAreaElement, Props>((
         id: type === "radio" ? camelCase(label) : name,
         type: as === "input" ? type : undefined,
         className: cn(
-            as === "input" && "pt-4 px-6 pb-1.5",
+            "bg-tertiary text-primary border-2 hover:bg-fourth",
+            as === "input" && type !== "radio" && type !== "checkbox" && "pt-4 px-6 pb-1.5",
             as === "textarea" && "pt-6 px-6 pb-2",
-            "bg-tertiary text-primary border-2 hover:bg-fourth focus:bg-fourth",
+            type !== "radio" && type !== "checkbox" && "focus:bg-fourth",
             error && !["radio", "checkbox"].includes(type) ? "border-red-500" : "border-transparent",
             className
         ),
