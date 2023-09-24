@@ -2,6 +2,7 @@ import type { FC, ReactElement } from "react";
 import type { Variants } from "framer-motion";
 import { motion } from "framer-motion";
 import PasswordGenerator from "@/pages/PasswordStrength/PasswordGenerator";
+import Logins from "@/pages/PasswordStrength/Logins";
 import PasswordChecker from "@/pages/PasswordStrength/PasswordChecker";
 
 const FADE_VARIANTS: Variants = {
@@ -29,6 +30,9 @@ const PasswordStrength: FC = (): ReactElement => {
             <div className="flex flex-col lg:flex-row gap-4">
                 <PasswordGenerator />
                 <PasswordChecker />
+            </div>
+            <div className="flex flex-col gap-4">
+                <Logins />
             </div>
         </motion.div>
     );
