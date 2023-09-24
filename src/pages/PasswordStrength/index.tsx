@@ -2,6 +2,7 @@ import type { FC, ReactElement } from "react";
 import type { Variants } from "framer-motion";
 import { motion } from "framer-motion";
 import PasswordGenerator from "@/pages/PasswordStrength/PasswordGenerator";
+import PasswordChecker from "@/pages/PasswordStrength/PasswordChecker";
 
 const FADE_VARIANTS: Variants = {
     hide: {
@@ -27,6 +28,7 @@ const PasswordStrength: FC = (): ReactElement => {
                     exit="hide">
             <div className="flex flex-col lg:flex-row gap-4">
                 <PasswordGenerator />
+                <PasswordChecker />
             </div>
         </motion.div>
     );
