@@ -3,6 +3,7 @@ import Root from "@/pages/Root";
 import Items from "@/pages/Items";
 import Detail from "@/pages/Detail";
 import PasswordStrength from "@/pages/PasswordStrength";
+import Settings from "@/pages/Settings";
 
 export const router = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ export const router = createBrowserRouter([
             {
                 path: "passwords-strength",
                 element: <PasswordStrength />
+            },
+            {
+                path: "settings",
+                element: <Settings />
             }
         ]
     }
