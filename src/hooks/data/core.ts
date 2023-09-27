@@ -15,3 +15,5 @@ export const useFetchAppData = () => {
 export const useGetAppData = () => useAppSelector(selectAppData);
 
 export const useFetchUser = () => useGetData(setUser, selectUser);
+
+export const useGetUser = () => useAppSelector(selectUser);

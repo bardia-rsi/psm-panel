@@ -4,6 +4,7 @@ import Items from "@/pages/Items";
 import Detail from "@/pages/Detail";
 import PasswordStrength from "@/pages/PasswordStrength";
 import Settings from "@/pages/Settings";
+import AccountPassword from "@/pages/Settings/pages/AccountPassword";
 
 export const router = createBrowserRouter([
     {
@@ -21,7 +22,10 @@ export const router = createBrowserRouter([
             },
             {
                 path: "settings",
-                element: <Settings />
+                element: <Settings />,
+                children: [
+                    { path: "account-password", element: <AccountPassword /> }
+                ]
             }
         ]
     }
