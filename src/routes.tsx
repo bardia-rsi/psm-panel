@@ -5,6 +5,7 @@ import Detail from "@/pages/Detail";
 import PasswordStrength from "@/pages/PasswordStrength";
 import Settings from "@/pages/Settings";
 import AccountPassword from "@/pages/Settings/pages/AccountPassword";
+import UpgradePlan from "@/pages/Settings/pages/UpgradePlan";
 import Appearance from "@/pages/Settings/pages/Appearance";
 
 export const router = createBrowserRouter([
@@ -26,6 +27,7 @@ export const router = createBrowserRouter([
                 element: <Settings />,
                 children: [
                     { path: "account-password", element: <AccountPassword /> },
+                    { path: "upgrade", element: <UpgradePlan /> },
                     { path: "appearance", element: <Appearance /> }
                 ]
             }

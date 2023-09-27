@@ -1,0 +1,29 @@
+.swiper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    padding-top: 1.5rem;
+    /*@apply flex flex-col gap-y-4 pt-6;*/
+}
+
+.swiper-slide {
+    height: auto;
+    display: flex;
+    /*@apply h-auto max-w-[400px];*/
+}
+
+.swiper-pagination {
+    position: static;
+    /*@apply static;*/
+}
+
+.swiper-pagination-bullet {
+    background: rgba(var(--bg-tertiary));
+    opacity: 1;
+    /*@apply bg-tertiary;*/
+}
+
+.swiper-pagination-bullet-active {
+    background: rgba(var(--ac-primary-500));
+    /*@apply bg-ac-primary-500;*/
+}
