@@ -9,6 +9,7 @@ import Container from "@/layouts/Sidebar/Container";
 import Loader from "@/layouts/Sidebar/Loader";
 import Skeleton from "@/components/ui/Skeleton";
 import Menu from "@/components/ui/Menu";
+import CollapsibleMenu from "@/layouts/Sidebar/CollapsibleMenu";
 import MenuItem from "@/components/ui/Menu/Item";
 import CTA from "@/components/ui/CTA";
 
@@ -38,21 +39,24 @@ const Index: FC = (): ReactElement => {
                                          : undefined
                                      }>
                                          {
-                                             section.menu.map(item => (
-                                                 <MenuItem key={item.id}
-                                                           to={item.url}
-                                                           text={item.text}
-                                                           icon={{ src: item.icon }}
-                                                           count={item.count}
-                                                           onClick={() => setVisibility(false)}
-                                                           className={cn(
-                                                               item.text.toLowerCase() === "trash"
-                                                                   ? "[&>svg>*]:!fill-trash"
-                                                                   : item.text.toLowerCase() === "favorites"
-                                                                       ? "[&>svg>*]:!fill-star"
-                                                                       : undefined
-                                                           )} />
-                                             ))
+                                             section.menu.map(item => item.children
+                                                 ? <CollapsibleMenu key={item.id} item={item} />
+                                                 : (
+                                                     <MenuItem key={item.id}
+                                                               to={item.url}
+                                                               text={item.text}
+                                                               icon={{ src: item.icon }}
+                                                               count={item.count}
+                                                               onClick={() => setVisibility(false)}
+                                                               className={cn(
+                                                                   item.text.toLowerCase() === "trash"
+                                                                       ? "[&>svg>*]:!fill-trash"
+                                                                       : item.text.toLowerCase() === "favorites"
+                                                                           ? "[&>svg>*]:!fill-star"
+                                                                           : undefined
+                                                               )} />
+                                                 )
+                                             )
                                          }
                                      </Menu>
                                  </Fragment>

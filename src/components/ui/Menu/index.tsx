@@ -1,16 +1,18 @@
-import type { ReactElement, FC } from "react";
-import type { Props as MenuItemProps } from "@/components/ui/Menu/Item";
+import type { ReactNode, ReactElement } from "react";
+import { forwardRef } from "react";
 import cn from "classnames";
 
 interface Props {
     className?: string;
-    children: ReactElement<MenuItemProps> | ReactElement<MenuItemProps>[];
+    children: ReactNode;
 }
 
-const Menu: FC<Props> = ({ className, children }): ReactElement => (
-    <ul className={cn("py-2", className)}>
+const Menu = forwardRef<HTMLUListElement, Props>(({ className, children }, ref): ReactElement => (
+    <ul className={cn("py-2", className)} ref={ref}>
         { children }
     </ul>
-);
+));
+
+export type { Props };
 
 export default Menu;
