@@ -36,7 +36,10 @@ module.exports = {
         "ac-primary": {
           500: "rgb(var(--ac-primary-500) / <alpha-value>)",
           600: "rgb(var(--ac-primary-600) / <alpha-value>)"
-        }
+        },
+        trash: "rgb(var(--trash) / <alpha-value>)",
+        star: "rgb(var(--star) / <alpha-value>)",
+        link: "rgb(var(--link) / <alpha-value>)"
       }
     }
   },
