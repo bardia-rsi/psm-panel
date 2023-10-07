@@ -1,6 +1,7 @@
 import type { FC, ReactElement } from "react";
 import { Fragment } from "react";
 import cn from "classnames";
+import { logout } from "@/helpers/token";
 import { useFetchAppData } from "@/hooks/data/core";
 import { useSidebarVisibility } from "@/hooks/useSidebarVisibility";
 import Container from "@/layouts/Sidebar/Container";
@@ -8,6 +9,7 @@ import Loader from "@/layouts/Sidebar/Loader";
 import PSMLogo from "@/components/PSMLogo";
 import Menu from "@/components/ui/Menu";
 import CollapsibleMenu from "@/layouts/Sidebar/CollapsibleMenu";
+import MenuButton from "@/layouts/Sidebar/MenuButton";
 import MenuItem from "@/components/ui/Menu/Item";
 import CTA from "@/components/ui/CTA";
 
@@ -50,6 +52,13 @@ const Index: FC = (): ReactElement => {
                                                                            : undefined
                                                                )} />
                                                  )
+                                             )
+                                         }
+                                         {
+                                             index + 1 === data.sidebar.sections.length && (
+                                                 <MenuButton icon={{ src: "/icons/logout.svg" }} onClick={logout}>
+                                                     Logout
+                                                 </MenuButton>
                                              )
                                          }
                                      </Menu>
