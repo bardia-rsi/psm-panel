@@ -1,13 +1,11 @@
 import type { FC, ReactElement } from "react";
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
 import cn from "classnames";
-import SVG from "react-inlinesvg";
 import { useFetchAppData } from "@/hooks/data/core";
 import { useSidebarVisibility } from "@/hooks/useSidebarVisibility";
 import Container from "@/layouts/Sidebar/Container";
 import Loader from "@/layouts/Sidebar/Loader";
-import Skeleton from "@/components/ui/Skeleton";
+import PSMLogo from "@/components/PSMLogo";
 import Menu from "@/components/ui/Menu";
 import CollapsibleMenu from "@/layouts/Sidebar/CollapsibleMenu";
 import MenuItem from "@/components/ui/Menu/Item";
@@ -25,11 +23,7 @@ const Index: FC = (): ReactElement => {
                  ? <Loader />
                  : (
                      <>
-                         <Link to="/" className="py-2">
-                             <SVG src={data.logoTypographyFull}
-                                  loader={<Skeleton h={2} w="50%" />}
-                                  className="w-full h-auto [&>*]:fill-primary" />
-                         </Link>
+                         <PSMLogo type="logoTypographyFull" />
                          {
                              data.sidebar.sections.map((section, index) => (
                                  <Fragment key={section.id}>
