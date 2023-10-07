@@ -35,7 +35,9 @@ const ThemeContextProvider: FC<Props> = ({ children }): ReactElement => {
 
     useEffect(() => {
 
-        if (localStorage.getItem("theme")?.search(/^light|dark$/) === -1) {
+        const storedTheme: string | null = localStorage.getItem("theme");
+
+        if (!storedTheme || storedTheme !== "light" && storedTheme !== "dark") {
 
             if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
                 changeTheme("dark");
