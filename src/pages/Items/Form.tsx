@@ -16,7 +16,7 @@ import EntityForm from "@/components/EntityForm";
 interface Props {
     modelIsOpen: boolean;
     setModelIsOpen: Dispatch<SetStateAction<boolean>>;
-    page: Exclude<EntityStates, "home" | "trash" | "favorites">;
+    page: Exclude<EntityStates, "allItems" | "trash" | "favorites">;
 }
 
 let isSubmitted: boolean = false;

@@ -8,7 +8,7 @@ import * as entitiesSlice from "@/app/slices/entities";
 
 const set = createAsyncThunk<
     boolean, undefined, { rejectValue: Error }
->("entities/home/set", async (_, { dispatch, rejectWithValue }) => {
+>("entities/allItems/set", async (_, { dispatch, rejectWithValue }) => {
     try {
 
         await dispatch(entitiesSlice.favorites.set());
@@ -29,7 +29,7 @@ const set = createAsyncThunk<
 });
 
 const slice = createSlice({
-    name: "entities/home",
+    name: "entities/allItems",
     initialState: { status: "idle", errors: {}, sortBy: "createdAt", order: "asc" } as StatePreferences,
     reducers: {
         "sortBy/change": changeSortByReducer,

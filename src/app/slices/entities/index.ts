@@ -1,4 +1,4 @@
-import * as home from "@/app/slices/entities/home";
+import * as allItems from "@/app/slices/entities/allItems";
 import * as trash from "@/app/slices/entities/trash";
 import * as favorites from "@/app/slices/entities/favorites";
 import * as contacts from "@/app/slices/entities/contacts";
@@ -7,7 +7,7 @@ import * as paymentCards from "@/app/slices/entities/paymentCards";
 import * as wifiPasswords from "@/app/slices/entities/wifiPasswords";
 
 export {
-    home,
+    allItems,
     trash,
     favorites,
     contacts,

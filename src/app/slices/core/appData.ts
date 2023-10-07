@@ -9,7 +9,7 @@ import { asyncThunkPayloadCreator } from "@/helpers/thunk";
 import { dataApi } from "@/api";
 import { setFailedStatus, setLoadingStatus } from "@/app/common/extraReducers";
 
-type Lengths = DictionaryUnion<Exclude<EntityStates, "home"> | "all", number>;
+type Lengths = DictionaryUnion<Exclude<EntityStates, "allItems"> | "all", number>;
 
 export interface State extends Omit<StatePreferences, "sortBy" | "order"> {
     data: AppData;
@@ -51,10 +51,10 @@ const slice = createSlice({
 
                         return {
                             ...item,
-                            count: item.text.toLowerCase() === "home"
+                            count: item.text.toLowerCase() === "all items"
                                 ? action.payload.all
                                 : key in action.payload
-                                    ? action.payload[key as Exclude<EntityStates, "home">]
+                                    ? action.payload[key as Exclude<EntityStates, "allItems">]
                                     : undefined
                         }
 

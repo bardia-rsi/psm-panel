@@ -10,7 +10,7 @@ import { useGetData } from "@/hooks/useGetData";
 import { useAppSelector } from "@/app/hooks";
 
 const selectMethods: DictionaryUnion<EntityStates> = {
-    home: selectors.selectEntities,
+    allItems: selectors.selectEntities,
     trash: selectors.selectTrash,
     favorites: selectors.selectFavorites,
     contacts: selectors.selectContacts,
@@ -24,7 +24,7 @@ export const useGetEntity = (stateName: EntityStates): EntityState<EntityItemWit
 }
 
 export const useGetEntityItem = (
-    type: Exclude<EntityStates, "home">,
+    type: Exclude<EntityStates, "allItems">,
     pid: PIDR
 ): { status: Status; item: EntityItemWithType } => {
 

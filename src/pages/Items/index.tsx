@@ -27,7 +27,7 @@ const ItemsPage: FC = (): ReactElement => {
     }
 
     const page = camelCase(params.type) as EntityStates;
-    const entityPage: EntityStateTypes | undefined = page !== "home" && page !== "trash" && page !== "favorites"
+    const entityPage: EntityStateTypes | undefined = page !== "allItems" && page !== "trash" && page !== "favorites"
         ? page
         : undefined;
 

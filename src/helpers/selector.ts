@@ -58,7 +58,7 @@ export const createEntitySelector = <
     T extends StoredEntityItem | StoreEntityItemWithType,
     O extends BaseEntityMeta = T
 >(
-    stateName: Exclude<EntityStates, "home">,
+    stateName: Exclude<EntityStates, "allItems">,
     denormalize: boolean = false,
     sort: boolean = true
 ): Selector<State, EntityState<O>> => {

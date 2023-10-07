@@ -40,7 +40,7 @@ const Detail: FC = (): ReactElement => {
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
 
-    const page = camelCase(params.type) as Exclude<EntityStates, "home">;
+    const page = camelCase(params.type) as Exclude<EntityStates, "allItems">;
 
     const data = useGetEntityItem(page, params.pid as string);
     const status = data.status;

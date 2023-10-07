@@ -40,7 +40,7 @@ const Navbar: FC<Props> = ({ itemsLength, page, sortBy, order, setModelIsOpen, o
             <SearchInput placeholder={
                 itemsLength === 0
                     ? "There is nothing to be searched"
-                    : page === "home"
+                    : page === "allItems"
                         ? "Search through your all items"
                         : `Search through your ${startCase(page).toLowerCase()}`
             }
@@ -58,7 +58,7 @@ const Navbar: FC<Props> = ({ itemsLength, page, sortBy, order, setModelIsOpen, o
                         } />
             )}
             {
-                page !== "trash" && page !== "favorites" && page !== "home" && (
+                page !== "trash" && page !== "favorites" && page !== "allItems" && (
                     <Button variant="filled" onClick={() => setModelIsOpen(true)}>
                         <Icon src="/icons/plus.svg" />
                     </Button>

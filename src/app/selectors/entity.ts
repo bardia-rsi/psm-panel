@@ -39,7 +39,7 @@ export const selectFavorites = createEntitySelector<StoredFavoriteItem, Favorite
 export const selectEntities = createSelector<[StateSelector], EntityState<EntityItemWithType>>(
     selectState,
     (state) => ({
-        ...state.entities.home,
+        ...state.entities.allItems,
         items: Object.fromEntries(
             sort<EntityItemWithType>(
                 [
@@ -49,8 +49,8 @@ export const selectEntities = createSelector<[StateSelector], EntityState<Entity
                     ...Object.values(selectPaymentCards(state).items).map(item => ({ ...item, type: "paymentCard" })),
                     ...Object.values(selectWifiPasswords(state).items).map(item => ({ ...item, type: "wifiPassword" }))
                 ] as EntityItemWithType[],
-                state.entities.home.sortBy,
-                state.entities.home.order
+                state.entities.allItems.sortBy,
+                state.entities.allItems.order
             ).map(item => [item.pid, item])
         )
     })
