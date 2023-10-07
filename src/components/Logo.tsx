@@ -41,7 +41,7 @@ const Logo: FC<Props> = ({ src, local, size, colors, name, className }): ReactEl
                     src && !local
                         ? src.startsWith("http")
                             ? src
-                            : `http://media.localhost:8000${src}`
+                            : import.meta.env.VITE_API_MEDIA_URL + src
                         : local as string
                 }
                                color={colors === undefined ? "rgb(var(--ic-primary))" : colors.logo[theme]}

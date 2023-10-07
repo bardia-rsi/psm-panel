@@ -12,7 +12,7 @@ export const logout = (): void => {
     Cookie.remove("psm_access_token");
     Cookie.remove("psm_refresh_token");
 
-    window.location.href = "http://www.localhost:8000/login";
+    window.location.href = import.meta.env.VITE_WEBSITE_URL;
 
 }
 
@@ -22,7 +22,7 @@ export const setNewAccessToken = async (config: InternalAxiosRequestConfig<any>)
         const res = await authApi.post<AccessToken>("/token");
 
         Cookie.set("psm_access_token", res.data.accessToken, {
-            domain: "localhost",
+            domain: `.${import.meta.env.VITE_WEBSITE_DOMAIN}`,
             expires: new Date(Date.now() + 3600000)
         });
 

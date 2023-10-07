@@ -9,7 +9,7 @@ axios.defaults.headers.post["Content-Type"] = "application/json";
 axios.defaults.headers.post["Accept"] = "application/json";
 
 export const dataApi = axios.create({
-    baseURL: "http://api.localhost:8000"
+    baseURL: import.meta.env.VITE_API_API_URL
 });
 
 dataApi.defaults.headers.get["Accept"] = "application/json";
@@ -46,7 +46,7 @@ axiosRetry(dataApi, {
 });
 
 export const authApi = axios.create({
-    baseURL: "http://auth.localhost:8000"
+    baseURL: import.meta.env.VITE_API_AUTH_URL
 });
 
 authApi.interceptors.request.use(config => {

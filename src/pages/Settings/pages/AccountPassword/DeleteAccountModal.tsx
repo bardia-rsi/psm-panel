@@ -37,7 +37,7 @@ const ChangePasswordModal: FC<Props> = ({ isOpen, setIsOpen }): ReactElement => 
 
                 logout();
 
-                window.location.href = "http://localhost:3000";
+                window.location.href = import.meta.env.VITE_WEBSITE_URL;
 
             } else {
                 addToast({
