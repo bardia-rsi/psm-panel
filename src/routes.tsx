@@ -7,6 +7,7 @@ import Settings from "@/pages/Settings";
 import AccountPassword from "@/pages/Settings/pages/AccountPassword";
 import UpgradePlan from "@/pages/Settings/pages/UpgradePlan";
 import Appearance from "@/pages/Settings/pages/Appearance";
+import NotFound from "@/pages/NotFound";
 
 export const router = createBrowserRouter([
     {
@@ -30,7 +31,8 @@ export const router = createBrowserRouter([
                     { path: "upgrade", element: <UpgradePlan /> },
                     { path: "appearance", element: <Appearance /> }
                 ]
-            }
+            },
+            { path: "*", element: <NotFound /> }
         ]
     }
 ]);
