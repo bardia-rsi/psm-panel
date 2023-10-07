@@ -8,6 +8,7 @@ import AccountPassword from "@/pages/Settings/pages/AccountPassword";
 import UpgradePlan from "@/pages/Settings/pages/UpgradePlan";
 import Appearance from "@/pages/Settings/pages/Appearance";
 import NotFound from "@/pages/NotFound";
+import Error from "@/pages/Error";
 
 export const router = createBrowserRouter([
     {
@@ -33,6 +34,7 @@ export const router = createBrowserRouter([
                 ]
             },
             { path: "*", element: <NotFound /> }
-        ]
+        ],
+        errorElement: <Error />
     }
 ]);
