@@ -1,27 +1,17 @@
 import type { FC, ReactElement } from "react";
 import type { Props as LogoProps } from "@/components/Logo";
 import type { EntityItemWithType } from "@/types/Data/Entities/Entity";
-import type { AppDispatch } from "@/app/store";
 import type { EntityStates, EntityTypes } from "@/types/App/DataTypes";
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { camelCase, startCase, last, get } from "lodash";
-import { normalize } from "normalizr";
-import cn from "classnames";
-import { entity } from "@/app/schemas/entity";
-import * as entitiesSlice from "@/app/slices/entities";
-import { convertTypeToStateName } from "@/utils/entity";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { camelCase } from "lodash";
 import { useGetEntityItem } from "@/hooks/data/entities";
-import { setLengths } from "@/app/slices/core/appData";
 import Loader from "@/pages/Detail/Loader";
+import Navbar from "@/pages/Detail/Navbar";
+import Header from "@/pages/Detail/Header";
+import Records from "@/pages/Detail/Records";
+import Footer from "@/pages/Detail/Footer";
 import Container from "@/pages/Detail/Container";
-import BackButton from "@/components/BackButton";
-import HeaderButton from "@/pages/Detail/HeaderButton";
-import Button from "@/components/ui/Button";
-import Icon from "@/components/ui/Icon";
-import Logo from "@/components/Logo";
-import Record from "@/pages/Detail/Record";
 
 interface ItemMeta {
     logo: LogoProps;
@@ -35,10 +25,7 @@ let prevItem: EntityItemWithType | undefined = undefined;
 
 const Detail: FC = (): ReactElement => {
 
-    const [changeLength, setChangeLength] = useState<number>(0);
     const params = useParams();
-    const navigate = useNavigate();
-    const dispatch = useDispatch<AppDispatch>();
 
     const page = camelCase(params.type) as Exclude<EntityStates, "allItems">;
 
@@ -115,80 +102,10 @@ const Detail: FC = (): ReactElement => {
 
     }
 
-    const favoriteClickHandler = (): void => {
-        if (page !== "trash") {
 
-            const stateName = convertTypeToStateName(item.type);
 
-            if (page === "favorites") {
-
-                prevItem = item;
-
-                dispatch(entitiesSlice.favorites.remove(item.pid));
-                // @ts-ignore
-                dispatch(entitiesSlice[stateName].update({ pid: item.pid, favorite: null }));
-
-                navigate("../");
-
-            } else {
-                // @ts-ignore
-                dispatch(entitiesSlice[stateName].update({
-                    pid: item.pid,
-                    favorite: item.favorite ? null : Date.now()
-                }));
-                dispatch(
-                    item.favorite
-                        ? entitiesSlice.favorites.remove(item.pid)
-                        : entitiesSlice.favorites.add(normalize(item, entity).entities.entities![item.pid])
-                );
-            }
-
-            setChangeLength(prevState => ++prevState);
-
-        }
-    }
-
-    const trashClickHandler = (): void => {
-
-        const stateName = convertTypeToStateName(item.type);
-
+    const setPrevItem = (): void => {
         prevItem = item;
-
-        if (page === "trash") {
-            dispatch(entitiesSlice.trash.remove(item.pid));
-            // @ts-ignore
-            dispatch(entitiesSlice[stateName].update({ pid: item.pid, trash: null }));
-        } else {
-
-            // @ts-ignore
-            dispatch(entitiesSlice[stateName].update({ pid: item.pid, trash: Date.now() }))
-            dispatch(entitiesSlice.trash.add(normalize(item, entity).entities.entities![item.pid]));
-
-            if (page === "favorites" || item.favorite) {
-                dispatch(entitiesSlice.favorites.remove(item.pid));
-            }
-
-            dispatch(entitiesSlice[stateName].softRemove(item.pid));
-
-        }
-
-        setChangeLength(prevState => ++prevState);
-
-        navigate("../");
-
-    }
-
-    const deletePermanently = (): void => {
-
-        prevItem = item;
-
-        dispatch(entitiesSlice[convertTypeToStateName(item.type)].remove(item.pid));
-        dispatch(entitiesSlice.trash.remove(item.pid));
-
-        setChangeLength(prevState => ++prevState);
-
-        navigate("../");
-
     }
 
     useEffect(() => {
@@ -197,103 +114,33 @@ const Detail: FC = (): ReactElement => {
         }
     }, []);
 
-    useEffect(() => {
-        dispatch(setLengths());
-    }, [changeLength]);
-
     return (
         <Container>
+            { status === "idle" || status === "loading" && <Loader /> }
             {
-                status !== "succeeded"
-                    ? <Loader />
-                    : (
-                        <>
-                            <div className="flex justify-between lg:justify-end gap-x-2 px-2">
-                                <BackButton className="lg:hidden" />
-                                <div className="flex gap-x-2">
-                                    {
-                                        page !== "trash" && (
-                                            <HeaderButton className="hover:bg-ac-primary-500">
-                                                <Icon src="/icons/pencil.svg" />
-                                                Edit
-                                            </HeaderButton>
-                                        )
-                                    }
-                                    <HeaderButton className={item.trash ? "hover:bg-ac-primary-500" : "hover:bg-trash"}
-                                                  onClick={trashClickHandler}>
-                                        <Icon src={`/icons/${item.trash ? "restore" : "trash"}.svg`} />
-                                        { item.trash ? "Restore" : "Trash" }
-                                    </HeaderButton>
-                                    {
-                                        page === "trash" && (
-                                            <HeaderButton className="hover:bg-trash" onClick={deletePermanently}>
-                                                <Icon src="/icons/xmark.svg" />
-                                                Delete
-                                            </HeaderButton>
-                                        )
-                                    }
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-x-3 xs:gap-x-4 px-2 pt-4 pb-2">
-                                <Logo {...itemMeta.logo}
-                                      className={cn(
-                                          "transition shadow-xl shadow-black/15 dark:shadow-black/50",
-                                          itemMeta.logo.className
-                                      )} />
-                                <div className="flex flex-col flex-1 justify-evenly overflow-hidden">
-                                    <h3 className="text-xl xs:text-3xl whitespace-nowrap overflow-hidden text-ellipsis">{ itemMeta.title }</h3>
-                                    {
-                                        itemMeta.link && (
-                                            <span className="text-link whitespace-nowrap overflow-hidden text-ellipsis">
-                                                <a href={itemMeta.link}
-                                                   target="_blank"
-                                                   className="text-link border-b border-b-transparent hover:border-b-link">
-                                                { itemMeta.link.replace(/^https?:\/\//, "") }
-                                            </a>
-                                            </span>
-                                        )
-                                    }
-                                </div>
-                                <Button variant="custom"
-                                        className={cn(
-                                            "border-transparent [&>svg]:w-8 [&>svg]:h-8 xs:[&>svg]:w-10 xs:[&>svg]:h-10",
-                                            item.favorite ? "[&>svg>*]:fill-star" : "[&>svg>*]:fill-secondary"
-                                        )}
-                                        onClick={favoriteClickHandler}
-                                        disabled={page === "trash"}
-                                        compact>
-                                    <Icon src="/icons/star.svg" />
-                                </Button>
-                            </div>
-                            <hr />
-                            {
-                                itemMeta.records.map(key => {
-
-                                    const value: string = get(item, key);
-                                    const isDateFields: boolean = ["createdAt", "updatedAt", "lastUsed"].includes(key);
-
-                                    return (
-                                        <Record key={key}
-                                                title={startCase(key.split(".")[0])}
-                                                text={(value || "Not Set")}
-                                                hover={!isDateFields}
-                                                copy={value ? !isDateFields : false}
-                                                hide={key.includes("password") || key.includes("cvv")} />
-                                    )
-
-                                })
-                            }
-                            {
-                                itemMeta.footer && (
-                                    <>
-                                        <hr/>
-                                        <Record title={startCase(last(itemMeta.footer.split(".")))}
-                                                text={get(item, itemMeta.footer) || "Not Set"} />
-                                    </>
-                                )
-                            }
-                        </>
-                    )
+                status === "succeeded" && (
+                    <>
+                        <Navbar page={page}
+                                item={item}
+                                setPrevItem={setPrevItem} />
+                        <Header page={page}
+                                item={item}
+                                logo={itemMeta.logo}
+                                title={itemMeta.title}
+                                link={itemMeta.link}
+                                setPrevItem={setPrevItem} />
+                        <hr />
+                        <Records item={item} records={itemMeta.records} />
+                        {
+                            itemMeta.footer && (
+                                <>
+                                    <hr />
+                                    <Footer item={item} recordKey={itemMeta.footer} />
+                                </>
+                            )
+                        }
+                    </>
+                )
             }
         </Container>
     )

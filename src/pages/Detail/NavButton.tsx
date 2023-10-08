@@ -3,7 +3,7 @@ import type { Props } from "@/components/ui/Button";
 import cn from "classnames";
 import Button from "@/components/ui/Button";
 
-const HeaderButton: FC<Omit<Props, "variant">> = ({ className, children, ...rest }): ReactElement => (
+const NavButton: FC<Omit<Props, "variant">> = ({ className, children, ...rest }): ReactElement => (
     <Button variant="custom"
             className={cn(
                 "bg-tertiary text-secondary [&>svg>*]:fill-secondary border-transparent",
@@ -15,4 +15,4 @@ const HeaderButton: FC<Omit<Props, "variant">> = ({ className, children, ...rest
     </Button>
 );
 
-export default HeaderButton;
+export default NavButton;
