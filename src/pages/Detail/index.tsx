@@ -64,10 +64,7 @@ const Detail: FC<Props> = ({ page }): ReactElement => {
                 itemMeta.logo.name = !item.company.logo ? item.company.name : undefined;
                 itemMeta.title = item.company.name;
                 itemMeta.link = item.company.website;
-                itemMeta.records = [
-                    "email", "password.current.content", "username", "phoneNumber", "name",
-                    "dateOfBirth", "address", "note", "lastUsed"
-                ];
+                itemMeta.records = ["email", "password", "username", "phoneNumber", "note", "lastUsed"];
                 itemMeta.footer = "company.about";
 
                 item.lastUsed = item.lastUsed ? new Date(item.lastUsed).toLocaleString() : "Never";

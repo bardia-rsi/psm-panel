@@ -1,41 +1,22 @@
-import type { PIDR, BaseEntityMeta, Timestamps, Password } from "@/types/Data/Base";
+import type { PIDR, BaseEntityMeta, Timestamps } from "@/types/Data/Base";
 import type { Company } from "@/types/Data/Entities/Company";
 
 interface LoginBase {
     url: string;
     email: string | null;
     username: string | null;
-    securityQuestions: {
-        pid: PIDR;
-        question: string;
-        answer: string;
-    }[];
     phoneNumber: string | null;
-    name: string | null;
-    dateOfBirth: string | null;
-    gender: string | null;
-    address: string | null;
+    password: string | null
 }
 
 export interface LoginCreatePayload extends RequiredKeys<Partial<LoginBase & BaseEntityMeta>, "url"> {
     company: PIDR | Company;
-    password?: {
-        current: string;
-    }
 }
 
-export interface LoginUpdatePayload extends RequiredKeys<RecursivePartial<LoginCreatePayload>, "pid"> {
-    password?: {
-        current: string;
-    }
-}
+export interface LoginUpdatePayload extends RequiredKeys<RecursivePartial<LoginCreatePayload>, "pid"> {}
 
 export interface LoginMeta extends LoginBase, Timestamps, BaseEntityMeta {
     company: Company;
-    password: {
-        current: Password;
-        history: Password[];
-    }
     lastUsed: string | null;
 }
 

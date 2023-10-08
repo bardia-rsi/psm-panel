@@ -36,16 +36,7 @@ export const create = Yup.object().shape({
             then: schema => schema.required("Email, username or phone number is required"),
         }),
     password: Yup.string()
-        .max(2048, "The password is too long. Maximum length is 2048 characters."),
-    name: Yup.string()
-        .trim()
-        .max(128, "The name is too long. Maximum length is 128 characters."),
-    gender: Yup.string()
-        .trim()
-        .max(64, "The gender is too long. Maximum length is 64 characters."),
-    address: Yup.string()
-        .trim()
-        .max(256, "The address is too long. Maximum length is 256 characters.")
+        .max(2048, "The password is too long. Maximum length is 2048 characters.")
 }, [
     ["email", "username"],
     ["email", "phoneNumber"],
