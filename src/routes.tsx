@@ -1,4 +1,6 @@
+import type { EntityStates } from "@/types/App/DataTypes";
 import { createBrowserRouter } from "react-router-dom";
+import { kebabCase } from "lodash";
 import Root from "@/pages/Root";
 import Items from "@/pages/Items";
 import Detail from "@/pages/Detail";
@@ -10,16 +12,20 @@ import Appearance from "@/pages/Settings/pages/Appearance";
 import NotFound from "@/pages/NotFound";
 import Error from "@/pages/Error";
 
+const entityPages: EntityStates[] = [
+    "allItems", "trash", "favorites", "logins", "contacts", "paymentCards", "wifiPasswords"
+];
+
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <Root />,
         children: [
-            {
-                path: ":type",
-                element: <Items />,
-                children: [{ path: ":pid/:name", element: <Detail /> }]
-            },
+            ...entityPages.map(stateName => ({
+                path: kebabCase(stateName),
+                element: <Items page={stateName} />,
+                children: [{ path: ":pid/:name", element: <Detail page={stateName} /> }]
+            })),
             {
                 path: "passwords-strength",
                 element: <PasswordStrength />

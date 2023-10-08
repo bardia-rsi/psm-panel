@@ -2,7 +2,6 @@ import type { FC, ReactElement, ChangeEvent } from "react";
 import type { EntityStates, EntityStateTypes } from "@/types/App/DataTypes";
 import { Fragment, useState } from "react";
 import { useParams, useLocation, useOutlet } from "react-router-dom";
-import { camelCase } from "lodash";
 import { AnimatePresence, motion } from "framer-motion";
 import cn from "classnames";
 import { useGetEntity } from "@/hooks/data/entities";
@@ -12,7 +11,12 @@ import Empty from "@/pages/Items/Empty";
 import Items from "@/pages/Items/Items";
 import Form from "@/pages/Items/Form";
 
-const ItemsPage: FC = (): ReactElement => {
+interface Props {
+    page: EntityStates;
+}
+
+
+const ItemsPage: FC<Props> = ({ page }): ReactElement => {
 
     const [modelIsOpen, setModelIsOpen] = useState<boolean>(false);
     const [query, setQuery] = useState<string>("");
@@ -26,7 +30,6 @@ const ItemsPage: FC = (): ReactElement => {
 
     }
 
-    const page = camelCase(params.type) as EntityStates;
     const entityPage: EntityStateTypes | undefined = page !== "allItems" && page !== "trash" && page !== "favorites"
         ? page
         : undefined;

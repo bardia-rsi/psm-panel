@@ -4,7 +4,6 @@ import type { EntityItemWithType } from "@/types/Data/Entities/Entity";
 import type { EntityStates, EntityTypes } from "@/types/App/DataTypes";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { camelCase } from "lodash";
 import { useGetEntityItem } from "@/hooks/data/entities";
 import Loader from "@/pages/Detail/Loader";
 import Navbar from "@/pages/Detail/Navbar";
@@ -21,13 +20,15 @@ interface ItemMeta {
     footer?: string;
 }
 
+interface Props {
+    page: EntityStates;
+}
+
 let prevItem: EntityItemWithType | undefined = undefined;
 
-const Detail: FC = (): ReactElement => {
+const Detail: FC<Props> = ({ page }): ReactElement => {
 
     const params = useParams();
-
-    const page = camelCase(params.type) as Exclude<EntityStates, "allItems">;
 
     const data = useGetEntityItem(page, params.pid as string);
     const status = data.status;

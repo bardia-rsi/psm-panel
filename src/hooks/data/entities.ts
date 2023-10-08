@@ -24,7 +24,7 @@ export const useGetEntity = (stateName: EntityStates): EntityState<EntityItemWit
 }
 
 export const useGetEntityItem = (
-    type: Exclude<EntityStates, "allItems">,
+    type: EntityStates,
     pid: PIDR
 ): { status: Status; item: EntityItemWithType } => {
 
