@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useGetUser } from "@/hooks/data/core";
 import Container from "@/pages/Settings/Container";
 import Loader from "@/pages/Settings/pages/AccountPassword/Loader";
-import Record from "@/components/Record";
+import Record from "@/pages/Settings/Record";
 import Button from "@/components/ui/Button";
 import ConfirmPasswordModal from "@/pages/Settings/pages/AccountPassword/ConfirmPasswordModal";
 import ChangePasswordModal from "@/pages/Settings/pages/AccountPassword/ChangePasswordModal";

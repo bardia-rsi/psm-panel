@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { startCase } from "lodash";
 import { ThemeContext } from "@/context/Theme";
 import Container from "@/pages/Settings/Container";
-import Record from "@/components/Record";
+import Record from "@/pages/Settings/Record";
 import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
 
