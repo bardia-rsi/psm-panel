@@ -1,6 +1,7 @@
 import type { FC, ReactElement } from "react";
 import type { Variants } from "framer-motion";
 import { motion } from "framer-motion";
+import Navbar from "@/layouts/Navbar";
 import PasswordGenerator from "@/pages/PasswordStrength/PasswordGenerator";
 import Logins from "@/pages/PasswordStrength/Logins";
 import PasswordChecker from "@/pages/PasswordStrength/PasswordChecker";
@@ -19,14 +20,20 @@ const FADE_VARIANTS: Variants = {
     }
 }
 
+const VARIANTS: Variants = {
+    hide: { opacity: 0 },
+    show: { opacity: 1 }
+}
+
 const PasswordStrength: FC = (): ReactElement => {
 
     return (
-        <motion.div className="max-h-screen flex flex-1 flex-col gap-4 p-4 overflow-y-auto"
+        <motion.div className="max-h-screen flex flex-1 flex-col gap-4 pb-4 overflow-y-auto"
                     variants={FADE_VARIANTS}
                     initial="hide"
                     animate="show"
                     exit="hide">
+            <Navbar variants={VARIANTS} logo responsive hamburgerMenuBtn={{ background: false, className: "-ml-2" }} />
             <div className="flex flex-col lg:flex-row gap-4">
                 <PasswordGenerator />
                 <PasswordChecker />

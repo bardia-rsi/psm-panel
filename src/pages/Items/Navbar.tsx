@@ -1,10 +1,8 @@
 import type { Dispatch, SetStateAction, ChangeEventHandler, FC, ReactElement } from "react";
 import type { SortBy, Order } from "@/types/App/States";
 import type { EntityStates } from "@/types/App/DataTypes";
-import { useRef } from "react";
 import { startCase } from "lodash";
-import { useSticky } from "@/hooks/useSticky";
-import HamburgerMenuButton from "@/components/HamburgerMenuButton";
+import NavbarLayout from "@/layouts/Navbar";
 import SearchInput from "@/components/ui/Form/search";
 import Filter from "@/components/Filter";
 import Button from "@/components/ui/Button";
@@ -22,21 +20,8 @@ interface Props {
 
 const Navbar: FC<Props> = ({ itemsLength, page, sortBy, order, setModelIsOpen, onChange, value }): ReactElement => {
 
-    const nav = useRef<HTMLDivElement>(null);
-
-    useSticky(
-        nav,
-        (isSticky) => {
-            if (nav.current) {
-                nav.current.classList.toggle("shadow-[rgb(var(--bg-primary))]", isSticky);
-                nav.current.classList.toggle("shadow-xl", isSticky);
-            }
-        }
-    );
-
     return (
-        <nav className="bg-primary flex gap-x-2 p-4 sticky -top-[0.0025rem] transition duration-300 z-10" ref={nav}>
-            <HamburgerMenuButton />
+        <NavbarLayout>
             <SearchInput placeholder={
                 itemsLength === 0
                     ? "There is nothing to be searched"
@@ -64,7 +49,7 @@ const Navbar: FC<Props> = ({ itemsLength, page, sortBy, order, setModelIsOpen, o
                     </Button>
                 )
             }
-        </nav>
+        </NavbarLayout>
     );
 
 }

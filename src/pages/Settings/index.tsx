@@ -7,6 +7,7 @@ import { useFetchUser } from "@/hooks/data/core";
 import Loader from "@/pages/Settings/Loader";
 import MenuItem from "@/components/ui/Menu/Item";
 import Icon from "@/components/ui/Icon";
+import Navbar from "@/layouts/Navbar";
 
 const Settings: FC = (): ReactElement => {
 
@@ -53,6 +54,7 @@ const Settings: FC = (): ReactElement => {
             </motion.nav>
             <AnimatePresence mode="wait">
                 <Fragment key={locationArr[2]}>
+                    <Navbar logo responsive hamburgerMenuBtn={{ background: false, className: "-ml-2" }} />
                     { currentOutlet }
                 </Fragment>
             </AnimatePresence>
