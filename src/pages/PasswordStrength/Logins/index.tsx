@@ -22,9 +22,9 @@ const Logins: FC = (): ReactElement => {
 
     if (status === "succeeded") {
 
-        for (const pid in pickBy(items, item => item.password.current)) {
+        for (const pid in pickBy(items, item => item.password)) {
 
-            const strength = complexity(strengthTester(items[pid].password.current.content).score);
+            const strength = complexity(strengthTester(items[pid].password!).score);
 
             organizedItems[camelCase(strength.toString()) as OrganizedItemsKeys].push(items[pid]);
 
@@ -54,7 +54,7 @@ const Logins: FC = (): ReactElement => {
                                                                   item.username ||
                                                                   item.phoneNumber ||
                                                                   "Not set"}
-                                                              password={item.password.current.content} />
+                                                              password={item.password} />
                                                     ))
                                                 }
                                             </div>
