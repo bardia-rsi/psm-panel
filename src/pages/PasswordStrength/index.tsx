@@ -28,17 +28,17 @@ const VARIANTS: Variants = {
 const PasswordStrength: FC = (): ReactElement => {
 
     return (
-        <motion.div className="max-h-screen flex flex-1 flex-col gap-4 pb-4 overflow-y-auto"
+        <motion.div className="max-h-full flex flex-1 flex-col gap-4 pb-4 sm:py-4 overflow-y-auto"
                     variants={FADE_VARIANTS}
                     initial="hide"
                     animate="show"
                     exit="hide">
             <Navbar variants={VARIANTS} logo responsive hamburgerMenuBtn={{ background: false, className: "-ml-2" }} />
-            <div className="flex flex-col lg:flex-row gap-4">
+            <div className="flex flex-col lg:flex-row gap-4 px-4">
                 <PasswordGenerator />
                 <PasswordChecker />
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 px-4 mt-4">
                 <Logins />
             </div>
         </motion.div>

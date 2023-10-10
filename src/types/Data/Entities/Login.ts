@@ -6,7 +6,7 @@ interface LoginBase {
     email: string | null;
     username: string | null;
     phoneNumber: string | null;
-    password: string | null
+    password: string;
 }
 
 export interface LoginCreatePayload extends RequiredKeys<Partial<LoginBase & BaseEntityMeta>, "url"> {
