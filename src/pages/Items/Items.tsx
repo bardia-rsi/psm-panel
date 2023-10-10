@@ -19,8 +19,10 @@ const Items: FC<Props> = ({ items, page, query }): ReactElement => {
     const filteredItems = Object.values(items).filter(item => {
 
         const searchField: string = "company" in item
-            ? item.company.name : "bank" in item
-                ? item.bank.name : item.name;
+            ? item.company.name
+            : "bank" in item
+                ? (item.bank?.name ?? item.owner)
+                : item.name;
 
         return searchField.toLowerCase().indexOf(query) !== -1
 
@@ -66,12 +68,12 @@ const Items: FC<Props> = ({ items, page, query }): ReactElement => {
 
                                     break;
                                 case "paymentCard":
-                                    itemProps.logo.src = item.bank.logo;
-                                    itemProps.logo.colors = item.bank.colors;
-                                    itemProps.logo.name = item.bank.logo
+                                    itemProps.logo.src = item.bank?.logo;
+                                    itemProps.logo.colors = item.bank?.colors;
+                                    itemProps.logo.name = item.bank?.logo
                                         ? item.bank.name
-                                        : undefined
-                                    itemProps.title = item.bank.name;
+                                        : item.owner
+                                    itemProps.title = item.bank?.name ?? "Not Recognized Bank";
                                     itemProps.subtitle = item.owner;
 
                                     break;

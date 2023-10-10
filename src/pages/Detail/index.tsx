@@ -72,11 +72,11 @@ const Detail: FC<Props> = ({ page }): ReactElement => {
                 break;
 
             case "paymentCard":
-                itemMeta.logo.src = item.bank.logo;
-                itemMeta.logo.colors = item.bank.colors;
-                itemMeta.logo.name = item.bank.logo ? item.bank.name : undefined
-                itemMeta.title = item.bank.name;
-                itemMeta.link = item.bank.website;
+                itemMeta.logo.src = item.bank?.logo;
+                itemMeta.logo.colors = item.bank?.colors;
+                itemMeta.logo.name = item.bank?.logo ? item.bank.name : item.owner
+                itemMeta.title = item.bank?.name ?? "Not Recognized Bank";
+                itemMeta.link = item.bank?.website;
                 itemMeta.records = ["owner", "cardNumber", "password", "cvv2", "expiration", "note"];
                 itemMeta.footer = "bank.about";
 
