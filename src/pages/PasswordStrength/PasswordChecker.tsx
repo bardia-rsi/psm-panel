@@ -1,49 +1,26 @@
 import type { FC, ReactElement, ChangeEvent } from "react";
 import type { Complexity, Strength } from "@/helpers/password";
 import { useState } from "react";
-import cn from "classnames";
 import { pickBy } from "lodash";
-import { useToast } from "@/hooks/useToast";
 import { strengthTester, complexity as getComplexity, getColor } from "@/helpers/password";
 import Container from "@/pages/PasswordStrength/Container";
 import StrengthBar from "@/pages/PasswordStrength/Strength";
-import Tooltip from "@/components/ui/Tooltip";
-import Button from "@/components/ui/Button";
-import Icon from "@/components/ui/Icon";
+import PasteButton from "@/components/PasteButton";
 
 const PasswordChecker: FC = (): ReactElement => {
 
     const [password, setPassword] = useState<string>("");
     const [strength, setStrength] = useState<Strength>(strengthTester(password))
     const [complexity, setComplexity] = useState<Complexity>(getComplexity(strength.score))
-    const { addToast } = useToast();
 
-    const pasteText = (): void => {
-        navigator.clipboard.readText()
-            .then((text) => {
+    const onTextPasted = (text: string): void => {
 
-                if (text === "") {
-                    addToast({
-                        type: "danger",
-                        content: "There is nothing to paste!"
-                    });
-                } else {
+        const strength = strengthTester(text);
 
-                    const strength = strengthTester(text);
+        setPassword(text);
+        setStrength(strength);
+        setComplexity(getComplexity(strength.score));
 
-                    setPassword(text);
-                    setStrength(strength);
-                    setComplexity(getComplexity(strength.score));
-
-                }
-
-            })
-            .catch(() => {
-                addToast({
-                    type: "danger",
-                    content: "Something went wrong! Can't get your password from your clipboard."
-                })
-            })
     }
 
     const changeHandler = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -66,16 +43,7 @@ const PasswordChecker: FC = (): ReactElement => {
                        placeholder="Type or paste your password"
                        value={password} />
                 <StrengthBar className="absolute bottom-0 left-0 right-0" score={strength.score} />
-                <Tooltip content="Paste">
-                    <Button variant="custom"
-                            className={cn(
-                                "p-1 border-transparent",
-                                "[&>svg>*]:fill-secondary [&>svg>*]:hover:fill-primary"
-                            )}
-                            onClick={() => pasteText()}>
-                        <Icon src="/icons/clipboard.svg" />
-                    </Button>
-                </Tooltip>
+                <PasteButton title="password" onTextPasted={onTextPasted} />
             </div>
             {
                 complexity !== "unknown" && password !== "" && (
