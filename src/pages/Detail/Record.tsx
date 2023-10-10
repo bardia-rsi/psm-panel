@@ -27,7 +27,7 @@ const Record: FC<Props> = ({ title, text, copy, hide, hover }): ReactElement => 
             <div className="flex flex-col flex-1 justify-evenly">
                 <h6 className="text-tertiary mb-1">{ title }</h6>
                 <p className="text-primary">
-                    { hide && visibility ? Array.from(Array(text.length)).map(() => "•").join("") : text }
+                    { hide && visibility ? Array.from(Array(16)).map(() => "•").join("") : text }
                 </p>
             </div>
             { hide && (

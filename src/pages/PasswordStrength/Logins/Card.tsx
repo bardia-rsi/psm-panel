@@ -36,7 +36,7 @@ const Card: FC<Props> = ({ company, subtitle, password }): ReactElement => {
             </div>
             <div className="w-full bg-tertiary flex items-center gap-x-1 pt-2 pb-4 pl-2 pr-1 rounded-md relative">
                 <p className="w-full text-primary whitespace-nowrap overflow-x-auto">
-                    { visibility ? password : String("•").repeat(password.length) }
+                    { visibility ? password : String("•").repeat(16) }
                 </p>
                 <VisibilityButton visibility={visibility} setVisibility={setVisibility} />
                 <CopyButton title="password" value={password} />
