@@ -1,12 +1,6 @@
 import * as Yup from "yup";
 
 export const create = Yup.object().shape({
-    company: Yup.object().shape({
-        name: Yup.string()
-            .trim()
-            .max(128, "The company name is too long. Maximum length is 128 characters.")
-            .required("Enter company name")
-    }).required("Enter company name"),
     url: Yup.string()
         .lowercase()
         .trim()
