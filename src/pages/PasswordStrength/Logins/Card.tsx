@@ -1,12 +1,9 @@
-import Button from "@/components/ui/Button";
-import Icon from "@/components/ui/Icon";
-import Tooltip from "@/components/ui/Tooltip";
-import cn from "classnames";
 import type { FC, ReactElement } from "react";
 import type { Company } from "@/types/Data/Entities/Company";
 import { useState } from "react";
 import { strengthTester } from "@/helpers/password";
 import Logo from "@/components/Logo";
+import VisibilityButton from "@/components/VisibilityButton";
 import CopyButton from "@/components/CopyButton";
 import Strength from "@/pages/PasswordStrength/Strength";
 
@@ -41,17 +38,7 @@ const Card: FC<Props> = ({ company, subtitle, password }): ReactElement => {
                 <p className="w-full text-primary whitespace-nowrap overflow-x-auto">
                     { visibility ? password : String("•").repeat(password.length) }
                 </p>
-                <Tooltip content={visibility ? "Show" : "Hidden"}>
-                    <Button variant="custom"
-                            className={cn(
-                                "!p-1 border-transparent",
-                                "[&>svg]:w-[1.125rem] [&>svg]:h-[1.125rem]",
-                                "[&>svg>*]:fill-secondary [&>svg>*]:hover:fill-primary"
-                            )}
-                            onClick={() => setVisibility(prevState => !prevState)}>
-                        <Icon src={`/icons/${visibility ? "eye" : "eye-hide"}.svg`} />
-                    </Button>
-                </Tooltip>
+                <VisibilityButton visibility={visibility} setVisibility={setVisibility} />
                 <CopyButton title="password" value={password} />
                 <Strength score={strengthTester(password).score} className="absolute bottom-0 left-0 right-0" />
             </div>

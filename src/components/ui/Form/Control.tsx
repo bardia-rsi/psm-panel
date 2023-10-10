@@ -8,9 +8,7 @@ import Select from "@/components/ui/Form/Select";
 import AutoCompleteField from "@/components/ui/Form/AutoCompleteField";
 import Label from "@/components/ui/Form/Label";
 import Field from "@/components/ui/Form/Field";
-import Tooltip from "@/components/ui/Tooltip";
-import Button from "@/components/ui/Button";
-import Icon from "@/components/ui/Icon";
+import VisibilityButton from "@/components/VisibilityButton";
 
 export interface Props extends ElementProps {
     as?: "input" | "textarea" | "select";
@@ -72,15 +70,11 @@ const Control: FC<Props> = (
                     <Label as={as} type={type} name={name} label={String(label)} />
                     {
                         type === "password" && (
-                            <Tooltip content={visibility ? "Show" : "Hidden"}
-                                     wrapperClassName="!absolute top-1/2 right-2 -translate-y-1/2">
-                                <Button variant="custom"
-                                        type="button"
-                                        className="border-transparent [&>svg>*]:fill-secondary [&>svg>*]:hover:fill-primary"
-                                        onClick={() => setVisibility(prevState => !prevState)}>
-                                    <Icon src={`/icons/${visibility ? "eye" : "eye-hide"}.svg`} h={1.25} w={1.25} />
-                                </Button>
-                            </Tooltip>
+                            <VisibilityButton visibility={visibility}
+                                              setVisibility={setVisibility}
+                                              tooltip={{
+                                                  wrapperClassName: "!absolute top-1/2 right-2 -translate-y-1/2"
+                                              }} />
                         )
                     }
                 </div>
