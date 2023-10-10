@@ -3,14 +3,11 @@ import type { DictionaryUnion } from "@/types/Types";
 import type { CharTypes } from "@/helpers/password";
 import { useState } from "react";
 import { chunk } from "lodash";
-import cn from "classnames";
 import { generate, strengthTester } from "@/helpers/password";
 import { useToast } from "@/hooks/useToast";
 import Container from "@/pages/PasswordStrength/Container";
 import Strength from "@/pages/PasswordStrength/Strength";
-import Tooltip from "@/components/ui/Tooltip";
-import Button from "@/components/ui/Button";
-import Icon from "@/components/ui/Icon";
+import CopyButton from "@/components/CopyButton";
 import Form from "@/components/ui/Form/Form";
 import Group from "@/components/ui/Form/Group";
 import Row from "@/components/ui/Form/Row";
@@ -46,19 +43,6 @@ const PasswordGenerator: FC = (): ReactElement => {
     const [length, setLength] = useState<number>(24);
     const { addToast } = useToast();
 
-    const copyText = (text: string): void => {
-        navigator.clipboard.writeText(text)
-            .then(() => addToast({
-                content: "The password successfully copied in your clipboard.",
-                type: "custom",
-                className: "bg-ac-primary-500"
-            }))
-            .catch(() => addToast({
-                content: "Something went wrong",
-                type: "danger"
-            }));
-    }
-
     const rangeHandler = (e: ChangeEvent<HTMLInputElement>) => setLength(Number(e.target.value));
 
     return (
@@ -67,16 +51,7 @@ const PasswordGenerator: FC = (): ReactElement => {
             <div className="flex items-center gap-x-2 bg-tertiary pl-4 pr-2 pt-2 pb-3 mb-2 rounded-md relative">
                 <p className="flex-1 text-primary whitespace-nowrap overflow-x-auto">{ password }</p>
                 <Strength score={strengthTester(password).score} className="absolute bottom-0 left-0 right-0" />
-                <Tooltip content="Copy">
-                    <Button variant="custom"
-                            className={cn(
-                                "p-1 border-transparent",
-                                "[&>svg>*]:fill-secondary [&>svg>*]:hover:fill-primary"
-                            )}
-                            onClick={() => copyText(password)}>
-                        <Icon src={`/icons/copy.svg`} />
-                    </Button>
-                </Tooltip>
+                <CopyButton title="password" value={password} />
             </div>
             <Form initialValues={initialValues}
                   form={{ className: "!max-w-none !mx-0" }}

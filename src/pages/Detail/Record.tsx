@@ -1,9 +1,10 @@
 import type { FC, ReactElement } from "react";
 import { useState } from "react";
 import cn from "classnames";
-import { useToast } from "@/hooks/useToast";
+import { useDetectTouchDevice } from "@/hooks/useDetectTouchDevice";
 import Icon from "@/components/ui/Icon";
 import Button from "@/components/ui/Button";
+import CopyButton from "@/components/CopyButton";
 
 interface Props {
     title: string;
@@ -16,20 +17,7 @@ interface Props {
 const Record: FC<Props> = ({ title, text, copy, hide, hover }): ReactElement => {
 
     const [isHide, setIsHide] = useState<boolean>(true);
-    const { addToast } = useToast();
-
-    const copyText = (text: string): void => {
-        navigator.clipboard.writeText(text)
-            .then(() => addToast({
-                content: `The ${title} successfully copied in your clipboard.`,
-                type: "custom",
-                className: "bg-ac-primary-500"
-            }))
-            .catch(() => addToast({
-                content: "Something went wrong",
-                type: "danger"
-            }));
-    }
+    const isTouchDevice = useDetectTouchDevice();
 
     return (
         <div className={cn(
@@ -56,15 +44,14 @@ const Record: FC<Props> = ({ title, text, copy, hide, hover }): ReactElement => 
                 </Button>
             )}
             { copy && (
-                <Button variant="custom"
-                        className={cn(
-                            "!p-1 border-transparent opacity-0",
-                            "group-hover:opacity-100 transition duration-300",
-                            "[&>svg>*]:fill-secondary [&>svg>*]:hover:fill-primary"
-                        )}
-                        onClick={() => copyText(text)}>
-                    <Icon src={`/icons/copy.svg`} />
-                </Button>
+                <CopyButton title={title}
+                            value={text}
+                            button={{
+                                className: cn(
+                                    "transition duration-300",
+                                    !isTouchDevice && "opacity-0 group-hover:opacity-100"
+                                )
+                            }} />
             )}
         </div>
     );

@@ -75,4 +75,6 @@ const Tooltip: FC<Props> = ({ content, position = "top", className, wrapperClass
 
 }
 
+export type { Props };
+
 export default Tooltip;

@@ -1,13 +1,13 @@
 import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
 import Tooltip from "@/components/ui/Tooltip";
-import { useToast } from "@/hooks/useToast";
 import cn from "classnames";
 import type { FC, ReactElement } from "react";
 import type { Company } from "@/types/Data/Entities/Company";
 import { useState } from "react";
 import { strengthTester } from "@/helpers/password";
 import Logo from "@/components/Logo";
+import CopyButton from "@/components/CopyButton";
 import Strength from "@/pages/PasswordStrength/Strength";
 
 interface Props {
@@ -19,20 +19,7 @@ interface Props {
 const Card: FC<Props> = ({ company, subtitle, password }): ReactElement => {
 
     const [visibility, setVisibility] = useState<boolean>(false);
-    const { addToast } = useToast();
 
-    const copyText = (text: string): void => {
-        navigator.clipboard.writeText(text)
-            .then(() => addToast({
-                content: "The Password successfully copied in your clipboard.",
-                type: "custom",
-                className: "bg-ac-primary-500"
-            }))
-            .catch(() => addToast({
-                content: "Something went wrong",
-                type: "danger"
-            }));
-    }
 
     return (
         <div className="min-w-[300px] max-w-[300px] bg-secondary flex flex-col gap-y-4 p-4 rounded-md">
@@ -65,16 +52,7 @@ const Card: FC<Props> = ({ company, subtitle, password }): ReactElement => {
                         <Icon src={`/icons/${visibility ? "eye" : "eye-hide"}.svg`} />
                     </Button>
                 </Tooltip>
-                <Tooltip content="Copy">
-                    <Button variant="custom"
-                            className={cn(
-                                "!p-1 border-transparent",
-                                "[&>svg>*]:fill-secondary [&>svg>*]:hover:fill-primary"
-                            )}
-                            onClick={() => copyText(password)}>
-                        <Icon src={`/icons/copy.svg`} />
-                    </Button>
-                </Tooltip>
+                <CopyButton title="password" value={password} />
                 <Strength score={strengthTester(password).score} className="absolute bottom-0 left-0 right-0" />
             </div>
         </div>
