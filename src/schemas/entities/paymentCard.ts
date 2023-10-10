@@ -1,12 +1,6 @@
 import * as Yup from "yup";
 
 export const create = Yup.object().shape({
-    bank: Yup.object().shape({
-        name: Yup.string()
-            .trim()
-            .max(128, "The bank name is too long. Maximum length is 128 characters.")
-            .required("Enter bank name")
-    }).required(),
     owner: Yup.string()
         .trim()
         .max(128, "The Owner is too long. Maximum length is 128 characters.")
