@@ -1,7 +1,6 @@
 import type { Dictionary } from "@/types/Types";
 import type { Error } from "@/types/App/Error";
 import type { PIDR, BaseEntityMeta } from "@/types/Data/Base";
-import type { Company } from "@/types/Data/Entities/Company";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { kebabCase } from "lodash";
 import { asyncThunkEntityPayloadCreator } from "@/helpers/thunk";
@@ -20,19 +19,7 @@ export const create = <T, R, C extends Dictionary>(name: string, basePath: strin
     createAsyncThunk<Dictionary<T>, C, { rejectValue: Error }>(
         `entities/${name}/create`,
         asyncThunkEntityPayloadCreator<T, R, C>(name, async (body, name) => {
-
-            const companyField: string | undefined = "company" in body ? "company" : "bank" in body ? "bank" : undefined;
-
-            if (companyField && typeof body[companyField] !== "string") {
-
-                let companyData = await dataApi.post<Company>("/data/companies", body[companyField]);
-
-                Object.assign(body, { [companyField]: companyData.data.pid });
-
-            }
-
             return await dataApi.post(`/${trim(basePath)}/${name}`, body);
-
         })
     );
 
