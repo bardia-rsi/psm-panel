@@ -34,8 +34,8 @@ export const router = createBrowserRouter([
                 path: "settings",
                 element: <Settings />,
                 children: [
-                    { path: "account-password", element: <AccountPassword /> },
-                    { path: "upgrade", element: <UpgradePlan /> },
+                    { path: "account", element: <AccountPassword /> },
+                    { path: "upgrade-plan", element: <UpgradePlan /> },
                     { path: "appearance", element: <Appearance /> }
                 ]
             },
