@@ -18,7 +18,7 @@ const Nav: FC<Props> = ({ children }): ReactElement => {
 
     return (
         <motion.nav className={cn(
-            "sm:w-1/6 min-w-[15rem] max-w-[15rem] lg:max-w-[20rem] min-h-screen max-h-screen bg-secondary",
+            "sm:w-1/6 min-w-[15rem] max-w-[15rem] lg:max-w-[20rem] min-h-full max-h-full bg-secondary",
             "flex flex-col py-4 px-2 overflow-y-auto"
         )}
                     initial={{ x: "-100%" }}
