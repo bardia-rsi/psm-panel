@@ -3,6 +3,12 @@ import type * as Login from "@/types/Data/Entities/Login";
 import type * as PaymentCard from "@/types/Data/Entities/PaymentCard";
 import type * as WifiPassword from "@/types/Data/Entities/WifiPassword";
 
+export type EntityItem =
+    Contact.ContactMeta |
+    Login.LoginMeta |
+    PaymentCard.PaymentCardMeta |
+    WifiPassword.WifiPasswordMeta;
+
 export type EntityItemWithType =
     Contact.ContactMetaWithType |
     Login.LoginMetaWithType |

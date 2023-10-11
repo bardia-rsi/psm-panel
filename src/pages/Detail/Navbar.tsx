@@ -15,6 +15,7 @@ import NavButton from "@/pages/Detail/NavButton";
 import Icon from "@/components/ui/Icon";
 import Modal from "@/components/ui/Modal";
 import Button from "@/components/ui/Button";
+import UpdateModal from "@/pages/Detail/UpdateModal";
 
 interface Props {
     page: EntityStates;
@@ -25,12 +26,15 @@ interface Props {
 
 const Navbar: FC<Props> = ({ page, item, title, setPrevItem }): ReactElement => {
 
+    const [updateModalIsOpen, setUpdateModalIsOpen] = useState<boolean>(false);
     const [warningModalIsOpen, setWarningModalIsOpen] = useState<boolean>(false);
     const [confirmDeletion, setConfirmDeletion] = useState<boolean>(false);
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
     const formattedType = startCase(item.type).toLowerCase();
+
+    const editClickHandler = (): void => setUpdateModalIsOpen(true);
 
     const trashClickHandler = (): void => {
 
@@ -88,7 +92,7 @@ const Navbar: FC<Props> = ({ page, item, title, setPrevItem }): ReactElement => 
                 <div className="flex gap-x-2">
                     {
                         page !== "trash" && (
-                            <NavButton className="hover:bg-ac-primary-500">
+                            <NavButton className="hover:bg-ac-primary-500" onClick={editClickHandler}>
                                 <Icon src="/icons/pencil.svg" />
                                 Edit
                             </NavButton>
@@ -109,6 +113,11 @@ const Navbar: FC<Props> = ({ page, item, title, setPrevItem }): ReactElement => 
                     }
                 </div>
             </div>
+            {
+                page !== "allItems" && page !== "trash" && page !== "favorites" && (
+                    <UpdateModal page={page} isOpen={updateModalIsOpen} setIsOpen={setUpdateModalIsOpen} />
+                )
+            }
             <Modal isOpen={warningModalIsOpen}
                    setIsOpen={() => setWarningModalIsOpen(false)}
                    onExitComplete={confirmDeletion ? deletePermanently : undefined}
