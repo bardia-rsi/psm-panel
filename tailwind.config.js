@@ -15,7 +15,8 @@ module.exports = {
         primary: "rgb(var(--bg-primary) / <alpha-value>)",
         secondary: "rgb(var(--bg-secondary) / <alpha-value>)",
         tertiary: "rgb(var(--bg-tertiary) / <alpha-value>)",
-        fourth: "rgb(var(--bg-fourth) / <alpha-value>)"
+        fourth: "rgb(var(--bg-fourth) / <alpha-value>)",
+        full: "rgb(var(--bg-full) / <alpha-value>)"
       },
       textColor: {
         primary: "rgb(var(--tx-primary) / <alpha-value>)",
