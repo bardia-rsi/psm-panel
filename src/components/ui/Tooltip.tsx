@@ -1,7 +1,8 @@
 import type { ReactNode, ReactElement, FC } from "react";
-import { cloneElement, useState } from "react";
+import { cloneElement, useState, useRef } from "react";
 import cn from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
+import { useOnclickOutside } from "@/hooks/useOnclickOutside";
 
 type Position = "top" | "right" | "bottom" | "left";
 
@@ -16,9 +17,12 @@ interface Props {
 const Tooltip: FC<Props> = ({ content, position = "top", className, wrapperClassName, children }): ReactElement => {
 
     const [show, setShow] = useState<boolean>(false);
+    const wrapperEl = useRef<HTMLDivElement>(null);
+
+    useOnclickOutside([wrapperEl], () => setShow(false), show);
 
     return (
-        <div className={cn("relative", wrapperClassName)}>
+        <div ref={wrapperEl} className={cn("relative", wrapperClassName)}>
             <AnimatePresence mode="wait">
                 {
                     show && (
