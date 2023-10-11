@@ -120,6 +120,7 @@ const Detail: FC<Props> = ({ page }): ReactElement => {
                     <>
                         <Navbar page={page}
                                 item={item}
+                                title={itemMeta.title}
                                 setPrevItem={setPrevItem} />
                         <Header page={page}
                                 item={item}

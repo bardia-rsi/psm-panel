@@ -12,16 +12,16 @@ interface Props {
     title: string;
     children: ReactNode;
     className?: string;
+    onExitComplete?: () => void;
 }
 
-const Modal: FC<Props> = ({ isOpen, setIsOpen, title, children, className }): ReactElement => {
-
+const Modal: FC<Props> = ({ isOpen, setIsOpen, title, children, className, onExitComplete }): ReactElement => {
     const wrapperEl = useRef(null);
 
     useOnclickOutside([wrapperEl], setIsOpen, isOpen);
 
     return cloneElement(
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" onExitComplete={onExitComplete}>
             {
                 isOpen && (
                     <motion.div className={cn(
