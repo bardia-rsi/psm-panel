@@ -4,7 +4,7 @@ import type { EntityStates } from "@/types/App/DataTypes";
 import { startCase } from "lodash";
 import NavbarLayout from "@/layouts/Navbar";
 import SearchInput from "@/components/ui/Form/search";
-import Filter from "@/components/Filter";
+import Filter from "@/pages/Items/Filter";
 import Button from "@/components/ui/Button";
 import Icon from "@/components/ui/Icon";
 
