@@ -3,7 +3,7 @@ import { company } from "./company";
 
 export const entity = new schema.Entity(
     "entities",
-    { company },
+    { company, bank: company },
     {
         idAttribute: "pid"
     }
