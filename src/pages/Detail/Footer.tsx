@@ -10,7 +10,8 @@ interface Props {
 
 const Footer: FC<Props> = ({ item, recordKey }): ReactElement => (
     <Record title={startCase(last(recordKey.split(".")))}
-            text={get(item, recordKey) || "Not Set"} />
+            text={get(item, recordKey) || "Not Set"}
+            responsiveText={false}/>
 );
 
 export default Footer;

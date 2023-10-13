@@ -11,9 +11,10 @@ interface Props {
     copy?: boolean;
     hide?: boolean;
     hover?: boolean;
+    responsiveText?: boolean;
 }
 
-const Record: FC<Props> = ({ title, text, copy, hide, hover }): ReactElement => {
+const Record: FC<Props> = ({ title, text, copy, hide, hover, responsiveText = true }): ReactElement => {
 
     const [visibility, setVisibility] = useState<boolean>(false);
     const isTouchDevice = useDetectTouchDevice();
@@ -21,12 +22,12 @@ const Record: FC<Props> = ({ title, text, copy, hide, hover }): ReactElement => 
     return (
         <div className={cn(
             "flex items-center p-4",
-            hover && "rounded-lg hover:bg-secondary",
+            hover && !isTouchDevice && "rounded-lg hover:bg-secondary",
             (copy || hide) && "group"
         )}>
-            <div className="flex flex-col flex-1 justify-evenly">
+            <div className={cn("flex flex-col flex-1 justify-evenly", responsiveText && "overflow-hidden")}>
                 <h6 className="text-tertiary mb-1">{ title }</h6>
-                <p className="text-primary">
+                <p className={cn("text-primary", responsiveText && "whitespace-nowrap overflow-x-auto")}>
                     { hide && !visibility ? Array.from(Array(16)).map(() => "•").join("") : text }
                 </p>
             </div>
