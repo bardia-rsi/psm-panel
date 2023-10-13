@@ -1,14 +1,14 @@
-import { selectBanks, selectCompanies } from "@/app/selectors/entity";
 import type { Dispatch, SetStateAction, FC, ReactElement } from "react";
+import type { FormikHelpers } from "formik";
 import type { EntityStates } from "@/types/App/DataTypes";
 import type { EntityItemCreatePayload } from "@/types/Data/Entities/Entity";
 import type { FullFilledAction, RejectedAction } from "@/types/App/ThunkActions";
 import type { Error } from "@/types/App/Error";
 import { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { omitBy } from "lodash";
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { useAppDispatch } from "@/app/hooks";
 import { useToast } from "@/hooks/useToast";
-import { AnimatePresence } from "framer-motion";
 import * as entitySlices from "@/app/slices/entities";
 import { setLengths } from "@/app/slices/core/appData";
 import EntityForm from "@/components/EntityForm";
@@ -19,96 +19,64 @@ interface Props {
     page: Exclude<EntityStates, "allItems" | "trash" | "favorites">;
 }
 
-let isSubmitted: boolean = false;
-
 const Form: FC<Props> = ({ setModalIsOpen, modalIsOpen, page }): ReactElement => {
 
     const [changeLength, setChangeLength] = useState<boolean>(false);
+    const location = useLocation();
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { addToast } = useToast();
 
-    const companies = useAppSelector(selectCompanies);
-    const banks = useAppSelector(selectBanks);
+    const submitHandler = async (
+        values: EntityItemCreatePayload,
+        formikValues: FormikHelpers<EntityItemCreatePayload>
+    ): Promise<void> => {
 
-    const submitHandler = async (values: EntityItemCreatePayload): Promise<void> => {
-        if (!isSubmitted) {
+        formikValues.setSubmitting(true);
 
-            isSubmitted = true;
+        const res: RejectedAction | FullFilledAction = await dispatch(entitySlices[page].create(
+            omitBy(values, v => v === "")
+        ));
 
-            if ("company" in values && typeof values.company !== "string") {
-                const keys = Object.keys(companies);
+        if (res.meta.requestStatus === "rejected") {
 
-                for (let i = 0; i < keys.length; i++) {
-                    if (companies[keys[i]].name === values.company.name) {
-                        values.company = companies[keys[i]].pid;
-                        break;
-                    }
-                }
+            addToast({
+                type: "danger",
+                content: (res.payload as Error).code === 409
+                    ? `The ${page.slice(0, -1)} already exists!`
+                    : "Something went wrong, Try again later"
+            });
 
-                if (typeof values.company !== "string") {
-                    values.company.website = "https://www.notRequired.org";
-                }
+        }
 
-            }
+        if (res.meta.requestStatus === "fulfilled") {
 
-            if ("bank" in values && typeof values.bank !== "string") {
+            addToast({
+                type: "success",
+                content: `The new ${page.slice(0, -1)} created successfully`,
+                duration: 1000,
+                onRemoveComplete: () => setModalIsOpen(false)
+            });
 
-                const keys = Object.keys(banks);
+            setChangeLength(true);
 
-                for (let i = 0; i < keys.length; i++) {
-                    if (banks[keys[i]].name === values.bank.name) {
-                        values.bank = banks[keys[i]].pid;
-                        break;
-                    }
-                }
-
-            }
-
-            const res: RejectedAction | FullFilledAction = await dispatch(entitySlices[page].create(
-                omitBy(values, v => v === "")
-            ));
-
-            if (res.meta.requestStatus === "rejected") {
-
-                isSubmitted = false;
-
-                addToast({
-                    type: "danger",
-                    content: (res.payload as Error).code === 409
-                        ? `The ${page.slice(0, -1)} already exists!`
-                        : "Something went wrong, Try again later"
-                });
-
-            }
-
-            if (res.meta.requestStatus === "fulfilled") {
-
-                addToast({
-                    type: "success",
-                    content: `The new ${page.slice(0, -1)} created successfully`,
-                    duration: 1000,
-                    onRemoveComplete: () => {
-                        setModalIsOpen(false);
-                        isSubmitted = false;
-                    }
-                });
-
-                setChangeLength(true);
-
+            if (location.pathname.split("/").length === 3) {
+                navigate("../");
             }
 
         }
+
     }
 
     useEffect(() => {
         dispatch(setLengths());
     }, [changeLength])
 
-    return (
-        <AnimatePresence mode="wait">
-            { modalIsOpen && (<EntityForm setIsOpen={setModalIsOpen} page={page} onSubmit={submitHandler} />) }
-        </AnimatePresence>
-    );
+    return <EntityForm isOpen={modalIsOpen}
+                       setIsOpen={setModalIsOpen}
+                       page={page}
+                       onSubmit={submitHandler}
+                       submitBtnText="Create"/>;
 
 }
 
