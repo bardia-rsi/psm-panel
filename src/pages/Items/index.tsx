@@ -42,30 +42,29 @@ const ItemsPage: FC<Props> = ({ page }): ReactElement => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ type: "tween" }}>
+                { status === "idle" || status === "loading" && <Loader /> }
                 {
-                    status !== "succeeded"
-                        ? <Loader />
-                        : (
-                            <>
-                                <Navbar page={page}
-                                        sortBy={sortBy}
-                                        order={order}
-                                        itemsLength={Object.keys(items).length}
-                                        setModalIsOpen={setModalIsOpen}
-                                        onQueryChange={searchBarChangeHandler}
-                                        query={query}
-                                />
-                                <div className="flex flex-col flex-nowrap px-4 pb-4">
-                                    <AnimatePresence mode="wait">
-                                        {
-                                            Object.keys(items).length === 0
-                                                ? <Empty key="e" page={page} />
-                                                : <Items key="i" page={entityPage} items={items} query={query} />
-                                        }
-                                    </AnimatePresence>
-                                </div>
-                            </>
-                        )
+                    status === "succeeded" && (
+                        <>
+                            <Navbar page={page}
+                                    sortBy={sortBy}
+                                    order={order}
+                                    itemsLength={Object.keys(items).length}
+                                    setModalIsOpen={setModalIsOpen}
+                                    onQueryChange={searchBarChangeHandler}
+                                    query={query}
+                            />
+                            <div className="flex flex-col flex-nowrap px-4 pb-4">
+                                <AnimatePresence mode="wait">
+                                    {
+                                        Object.keys(items).length === 0
+                                            ? <Empty key="e" page={page} />
+                                            : <Items key="i" page={entityPage} items={items} query={query} />
+                                    }
+                                </AnimatePresence>
+                            </div>
+                        </>
+                    )
                 }
             </motion.div>
             { entityPage && <Form setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen} page={entityPage} /> }
