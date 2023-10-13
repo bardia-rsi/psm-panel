@@ -31,7 +31,7 @@ const ItemsPage: FC<Props> = ({ page }): ReactElement => {
     return (
         <>
             <motion.div className={cn(
-                "w-full lg:w-1/3 min-h-screen max-h-screen bg-primary flex flex-col",
+                "w-full lg:w-1/3 min-h-full max-h-full bg-primary flex flex-col",
                 "sm:border-l-2 sm:border-l-primary overflow-y-auto"
             )}
                         initial={{ opacity: 0 }}
