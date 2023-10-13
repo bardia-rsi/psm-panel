@@ -58,7 +58,7 @@ const ChangePasswordModal: FC<Props> = ({ isOpen, setIsOpen }): ReactElement => 
         <Modal isOpen={isOpen}
                setIsOpen={() => setIsOpen(false)}
                title="Delete account"
-               className="min-w-[24rem]">
+               className="sm:min-w-[24rem]">
             <div className="border-l-2 border-l-orange-500 pl-2 mt-4">
                 <h3 className="text-base uppercase">
                     warning: deletion in permanent. all your data will be gone.

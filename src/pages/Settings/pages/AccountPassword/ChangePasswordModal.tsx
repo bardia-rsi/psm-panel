@@ -58,7 +58,7 @@ const ChangePasswordModal: FC<Props> = ({ isOpen, setIsOpen }): ReactElement => 
         <Modal isOpen={isOpen}
                setIsOpen={() => setIsOpen(false)}
                title="Change password"
-               className="min-w-[24rem]">
+               className="sm:min-w-[24rem]">
             <Form initialValues={{ password: "", passwordConfirmation: "" }}
                   validationSchema={changePasswordSchema}
                   onSubmit={submitHandler}

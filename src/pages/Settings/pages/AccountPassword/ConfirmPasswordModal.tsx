@@ -54,7 +54,7 @@ const ConfirmPasswordModal: FC<Props> = ({ isOpen, setIsOpen, onCorrect }): Reac
         <Modal isOpen={isOpen}
                setIsOpen={() => setIsOpen(false)}
                title="Enter your password"
-               className="min-w-[24rem]">
+               className="sm:min-w-[24rem]">
             <Form initialValues={{ password: "" }}
                   validationSchema={checkPasswordSchema}
                   onSubmit={submitHandler}
