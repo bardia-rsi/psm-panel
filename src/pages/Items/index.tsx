@@ -1,7 +1,7 @@
 import type { FC, ReactElement, ChangeEvent } from "react";
 import type { EntityStates, EntityStateTypes } from "@/types/App/DataTypes";
 import { Fragment, useState } from "react";
-import { useParams, useLocation, useOutlet } from "react-router-dom";
+import { useLocation, useOutlet } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import cn from "classnames";
 import { useGetEntity } from "@/hooks/data/entities";
@@ -15,20 +15,14 @@ interface Props {
     page: EntityStates;
 }
 
-
 const ItemsPage: FC<Props> = ({ page }): ReactElement => {
 
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const [query, setQuery] = useState<string>("");
-    const params = useParams<"type">();
     const location = useLocation();
     const currentOutlet = useOutlet();
 
     const locationArr = location?.pathname.split("/") ?? [];
-
-    if (!["contacts", "logins", "payment-cards", "wifi-passwords"].includes(params.type!)) {
-
-    }
 
     const entityPage: EntityStateTypes | undefined = page !== "allItems" && page !== "trash" && page !== "favorites"
         ? page
