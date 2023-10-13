@@ -18,7 +18,7 @@ interface Props {
 
 const ItemsPage: FC<Props> = ({ page }): ReactElement => {
 
-    const [modelIsOpen, setModelIsOpen] = useState<boolean>(false);
+    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const [query, setQuery] = useState<string>("");
     const params = useParams<"type">();
     const location = useLocation();
@@ -57,9 +57,9 @@ const ItemsPage: FC<Props> = ({ page }): ReactElement => {
                                         sortBy={sortBy}
                                         order={order}
                                         itemsLength={Object.keys(items).length}
-                                        setModelIsOpen={setModelIsOpen}
-                                        onChange={searchBarChangeHandler}
-                                        value={query}
+                                        setModalIsOpen={setModalIsOpen}
+                                        onQueryChange={searchBarChangeHandler}
+                                        query={query}
                                 />
                                 <div className="flex flex-col flex-nowrap px-4 pb-4">
                                     <AnimatePresence mode="wait">
@@ -74,7 +74,7 @@ const ItemsPage: FC<Props> = ({ page }): ReactElement => {
                         )
                 }
             </motion.div>
-            { entityPage && <Form setModelIsOpen={setModelIsOpen} modelIsOpen={modelIsOpen} page={entityPage} /> }
+            { entityPage && <Form setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen} page={entityPage} /> }
             <AnimatePresence mode="wait">
                 <Fragment key={locationArr[2]}>
                     { currentOutlet }

@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction, ChangeEventHandler, FC, ReactElement } from "react";
+import type { ChangeEventHandler, Dispatch, SetStateAction, FC, ReactElement } from "react";
 import type { SortBy, Order } from "@/types/App/States";
 import type { EntityStates } from "@/types/App/DataTypes";
 import { startCase } from "lodash";
@@ -13,13 +13,14 @@ interface Props {
     itemsLength: number;
     sortBy: SortBy | string;
     order: Order;
-    setModelIsOpen: Dispatch<SetStateAction<boolean>>;
-    onChange?: ChangeEventHandler<HTMLInputElement>;
-    value?: string;
+    onQueryChange?: ChangeEventHandler<HTMLInputElement>;
+    query?: string;
+    setModalIsOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-const Navbar: FC<Props> = ({ itemsLength, page, sortBy, order, setModelIsOpen, onChange, value }): ReactElement => {
-
+const Navbar: FC<Props> = ({
+    itemsLength, page, sortBy, order, onQueryChange, query, setModalIsOpen
+}): ReactElement => {
     return (
         <NavbarLayout>
             <SearchInput placeholder={
@@ -29,8 +30,8 @@ const Navbar: FC<Props> = ({ itemsLength, page, sortBy, order, setModelIsOpen, o
                         ? "Search through your all items"
                         : `Search through your ${startCase(page).toLowerCase()}`
             }
-                         onChange={onChange}
-                         value={value} />
+                         onChange={onQueryChange}
+                         value={query} />
             { itemsLength !== 0 && (
                 <Filter stateName={page}
                         sortByDefaultValue={sortBy}
@@ -44,14 +45,13 @@ const Navbar: FC<Props> = ({ itemsLength, page, sortBy, order, setModelIsOpen, o
             )}
             {
                 page !== "trash" && page !== "favorites" && page !== "allItems" && (
-                    <Button variant="filled" onClick={() => setModelIsOpen(true)}>
+                    <Button variant="filled" onClick={() => setModalIsOpen(true)}>
                         <Icon src="/icons/plus.svg" />
                     </Button>
                 )
             }
         </NavbarLayout>
     );
-
 }
 
 export default Navbar;

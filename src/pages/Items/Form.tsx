@@ -14,14 +14,14 @@ import { setLengths } from "@/app/slices/core/appData";
 import EntityForm from "@/components/EntityForm";
 
 interface Props {
-    modelIsOpen: boolean;
-    setModelIsOpen: Dispatch<SetStateAction<boolean>>;
+    modalIsOpen: boolean;
+    setModalIsOpen: Dispatch<SetStateAction<boolean>>;
     page: Exclude<EntityStates, "allItems" | "trash" | "favorites">;
 }
 
 let isSubmitted: boolean = false;
 
-const Form: FC<Props> = ({ setModelIsOpen, modelIsOpen, page }): ReactElement => {
+const Form: FC<Props> = ({ setModalIsOpen, modalIsOpen, page }): ReactElement => {
 
     const [changeLength, setChangeLength] = useState<boolean>(false);
     const dispatch = useAppDispatch();
@@ -88,7 +88,7 @@ const Form: FC<Props> = ({ setModelIsOpen, modelIsOpen, page }): ReactElement =>
                     content: `The new ${page.slice(0, -1)} created successfully`,
                     duration: 1000,
                     onRemoveComplete: () => {
-                        setModelIsOpen(false);
+                        setModalIsOpen(false);
                         isSubmitted = false;
                     }
                 });
@@ -106,7 +106,7 @@ const Form: FC<Props> = ({ setModelIsOpen, modelIsOpen, page }): ReactElement =>
 
     return (
         <AnimatePresence mode="wait">
-            { modelIsOpen && (<EntityForm setIsOpen={setModelIsOpen} page={page} onSubmit={submitHandler} />) }
+            { modalIsOpen && (<EntityForm setIsOpen={setModalIsOpen} page={page} onSubmit={submitHandler} />) }
         </AnimatePresence>
     );
 
