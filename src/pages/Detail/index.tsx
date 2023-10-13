@@ -1,7 +1,7 @@
 import type { FC, ReactElement } from "react";
-import type { Props as LogoProps } from "@/components/Logo";
 import type { EntityItemWithType } from "@/types/Data/Entities/Entity";
 import type { EntityStates, EntityTypes } from "@/types/App/DataTypes";
+import type { Props as LogoProps } from "@/components/Logo";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGetEntityItem } from "@/hooks/data/entities";
@@ -15,9 +15,9 @@ import Container from "@/pages/Detail/Container";
 interface ItemMeta {
     logo: LogoProps;
     title: string;
-    link?: string | undefined | null;
+    link?: string | null;
     records: string[];
-    footer?: string;
+    footer: string;
 }
 
 interface Props {
@@ -28,11 +28,8 @@ let prevItem: EntityItemWithType | undefined = undefined;
 
 const Detail: FC<Props> = ({ page }): ReactElement => {
 
-    const params = useParams();
-
-    const data = useGetEntityItem(page, params.pid as string);
-    const status = data.status;
-    let item = data.item;
+    const params = useParams<"pid">();
+    const data = useGetEntityItem(page, params.pid!);
 
     const itemMeta: ItemMeta = {
         logo: {
@@ -40,9 +37,12 @@ const Detail: FC<Props> = ({ page }): ReactElement => {
         },
         title: "",
         records: [],
+        footer: ""
     }
 
-    if (status === "succeeded") {
+    let item = data.item;
+
+    if (data.status === "succeeded") {
 
         item = Object.keys(item).length !== 0 ? item : prevItem!;
 
@@ -114,9 +114,9 @@ const Detail: FC<Props> = ({ page }): ReactElement => {
 
     return (
         <Container>
-            { status === "idle" || status === "loading" && <Loader /> }
+            { data.status === "idle" || data.status === "loading" && <Loader /> }
             {
-                status === "succeeded" && (
+                data.status === "succeeded" && (
                     <>
                         <Navbar page={page}
                                 item={item}
@@ -130,14 +130,8 @@ const Detail: FC<Props> = ({ page }): ReactElement => {
                                 setPrevItem={setPrevItem} />
                         <hr />
                         <Records item={item} records={itemMeta.records} />
-                        {
-                            itemMeta.footer && (
-                                <>
-                                    <hr />
-                                    <Footer item={item} recordKey={itemMeta.footer} />
-                                </>
-                            )
-                        }
+                        <hr />
+                        <Footer item={item} recordKey={itemMeta.footer} />
                     </>
                 )
             }
