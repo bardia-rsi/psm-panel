@@ -16,6 +16,7 @@ interface Props {
 }
 
 const Modal: FC<Props> = ({ isOpen, setIsOpen, title, children, className, onExitComplete }): ReactElement => {
+
     const wrapperEl = useRef(null);
 
     useOnclickOutside([wrapperEl], setIsOpen, isOpen);
@@ -25,14 +26,15 @@ const Modal: FC<Props> = ({ isOpen, setIsOpen, title, children, className, onExi
             {
                 isOpen && (
                     <motion.div className={cn(
-                        "w-full h-screen flex justify-center items-center",
-                        "absolute top-0 right-0 bottom-0 left-0 p-8 md:p-12"
+                        "w-full flex justify-center items-center",
+                        "fixed top-0 right-0 bottom-0 left-0 sm:p-8 md:p-12 z-[100]"
                     )}
                                 initial={{ opacity: 0, backgroundColor: "rgb(0 0 0 / 0)", backdropFilter: "blur(0)" }}
                                 animate={{ opacity: 1, backgroundColor: "rgb(0 0 0 / 0.4)", backdropFilter: "blur(8px)" }}
                                 exit={{ opacity: 0, backgroundColor: "rgb(0 0 0 / 0)", backdropFilter: "blur(0)" }}>
                         <div className={cn(
-                            "max-h-full bg-secondary p-4 rounded-md shadow-2xl overflow-y-auto",
+                            "sm:min-h-min max-h-full bg-secondary p-4",
+                            "rounded-md shadow-2xl overflow-y-auto",
                             className
                         )}
                              ref={wrapperEl}>
