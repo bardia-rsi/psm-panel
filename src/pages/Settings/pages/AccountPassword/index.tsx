@@ -68,6 +68,7 @@ const AccountPassword: FC = (): ReactElement => {
                                     </p>
                                     <Button variant="filled"
                                             className="bg-red-600 text-base hover:bg-red-700"
+                                            size="sm"
                                             onClick={deleteAccountClickHandler}>
                                         Delete your account
                                     </Button>
