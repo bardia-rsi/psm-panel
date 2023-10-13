@@ -16,21 +16,19 @@ const Records: FC<Props> = ({ item, records }): ReactElement => {
                 records.map(key => {
 
                     const value: string = get(item, key);
-                    const isDateFields: boolean = ["createdAt", "updatedAt", "lastUsed"].includes(key);
+                    const isDateRecord: boolean = ["createdAt", "updatedAt", "lastUsed"].includes(key);
 
-                    return (
-                        <Record key={key}
-                                title={startCase(key.split(".")[0])}
-                                text={(value || "Not Set")}
-                                hover={!isDateFields}
-                                copy={value ? !isDateFields : false}
-                                hide={key.includes("password") || key.includes("cvv")} />
-                    )
+                    return <Record key={key}
+                                   title={startCase(key.split(".")[0])}
+                                   text={value || "Not Set"}
+                                   hover={!isDateRecord}
+                                   copy={value ? !isDateRecord : false}
+                                   hide={key.toLowerCase().includes("password") || key.includes("cvv")} />;
 
                 })
             }
         </>
-    )
+    );
 
 }
 
