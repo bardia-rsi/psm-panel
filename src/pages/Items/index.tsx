@@ -1,5 +1,5 @@
 import type { FC, ReactElement, ChangeEvent } from "react";
-import type { EntityStates, EntityStateTypes } from "@/types/App/DataTypes";
+import type { EntityStates } from "@/types/App/DataTypes";
 import { Fragment, useState } from "react";
 import { useLocation, useOutlet } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
@@ -23,10 +23,6 @@ const ItemsPage: FC<Props> = ({ page }): ReactElement => {
     const currentOutlet = useOutlet();
 
     const locationArr = location?.pathname.split("/") ?? [];
-
-    const entityPage: EntityStateTypes | undefined = page !== "allItems" && page !== "trash" && page !== "favorites"
-        ? page
-        : undefined;
 
     const { status, items, sortBy, order } = useGetEntity(page);
 
@@ -59,7 +55,7 @@ const ItemsPage: FC<Props> = ({ page }): ReactElement => {
                                     {
                                         Object.keys(items).length === 0
                                             ? <Empty key="e" page={page} />
-                                            : <Items key="i" page={entityPage} items={items} query={query} />
+                                            : <Items key="i" page={page} items={items} query={query} />
                                     }
                                 </AnimatePresence>
                             </div>
@@ -67,7 +63,11 @@ const ItemsPage: FC<Props> = ({ page }): ReactElement => {
                     )
                 }
             </motion.div>
-            { entityPage && <Form setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen} page={entityPage} /> }
+            {
+                page !== "allItems" && page !== "trash" && page !== "favorites" && (
+                    <Form setModalIsOpen={setModalIsOpen} modalIsOpen={modalIsOpen} page={page} />
+                )
+            }
             <AnimatePresence mode="wait">
                 <Fragment key={locationArr[2]}>
                     { currentOutlet }

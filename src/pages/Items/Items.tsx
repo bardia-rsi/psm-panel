@@ -1,6 +1,6 @@
 import type { FC, ReactElement } from "react";
 import type { Dictionary } from "@/types/Types";
-import type { EntityStateTypes } from "@/types/App/DataTypes";
+import type { EntityStates } from "@/types/App/DataTypes";
 import type { EntityItemWithType } from "@/types/Data/Entities/Entity";
 import type { Props as ItemProps } from "@/pages/Items/Item";
 import { AnimatePresence, motion } from "framer-motion";
@@ -9,7 +9,7 @@ import Item from "@/pages/Items/Item";
 import NotFound from "@/pages/Items/NotFound";
 
 interface Props {
-    page?: EntityStateTypes;
+    page: EntityStates;
     items: Dictionary<EntityItemWithType>;
     query: string;
 }
@@ -38,7 +38,9 @@ const Items: FC<Props> = ({ items, page, query }): ReactElement => {
 
                             item = { ...item }
 
-                            item.type = page ? convertStateNameToType(page) : item.type;
+                            item.type = page !== "allItems" && page !== "trash" && page !== "favorites"
+                                ? convertStateNameToType(page)
+                                : item.type;
 
                             const itemProps:ItemProps = {
                                 pid: item.pid,
