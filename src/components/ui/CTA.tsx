@@ -28,7 +28,7 @@ const CTA: FC<Props> = ({ icon, title, description, submitBtn, cancelBtnText, cl
                         <Button variant="icon"
                                 size="sm"
                                 compact
-                                className="absolute top-2 right-2"
+                                className="absolute top-2 right-2.5"
                                 onClick={close}>
                             <Icon src="/icons/xmark.svg" />
                         </Button>
