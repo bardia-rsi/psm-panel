@@ -24,7 +24,7 @@ const Items: FC<Props> = ({ items, page, query }): ReactElement => {
                 ? (item.bank?.name ?? item.owner)
                 : item.name;
 
-        return searchField.toLowerCase().indexOf(query) !== -1
+        return searchField.toLowerCase().indexOf(query.toLowerCase()) !== -1;
 
     });
 
