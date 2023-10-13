@@ -3,7 +3,6 @@ import type { PIDR } from "@/types/Data/Base";
 import type { Props as LogoProps } from "@/components/Logo";
 import { motion } from "framer-motion";
 import { NavLink } from "react-router-dom";
-import { kebabCase } from "lodash";
 import cn from "classnames";
 import Logo from "@/components/Logo";
 
@@ -17,7 +16,7 @@ interface Props {
 const MotionLink = motion(NavLink);
 
 const Item: FC<Props> = ({ pid, logo, title, subtitle }): ReactElement => (
-    <MotionLink to={`${pid}/${kebabCase(title.toLowerCase())}`}
+    <MotionLink to={pid}
                 className={({ isActive }) => cn(
                     "flex items-center gap-x-4 p-4 rounded-md hover:bg-ac-primary-500 group",
                     isActive ? "bg-ac-primary-500 active" : "bg-primary"

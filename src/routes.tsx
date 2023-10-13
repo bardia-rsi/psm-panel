@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
             ...entityPages.map(stateName => ({
                 path: kebabCase(stateName),
                 element: <Items page={stateName} />,
-                children: [{ path: ":pid/:name", element: <Detail page={stateName} /> }]
+                children: [{ path: ":pid", element: <Detail page={stateName} /> }]
             })),
             {
                 path: "passwords-strength",
