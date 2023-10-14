@@ -1,6 +1,5 @@
 import type { StatePreferences } from "@/types/App/States";
 import type { UserMeta, UserUpdatePayload } from "@/types/Data/Core/User";
-import { PIDI, PIDR } from "@/types/Data/Base";
 import { Error } from "@/types/App/Error";
 import { dataApi } from "@/api";
 import { asyncThunkPayloadCreator } from "@/helpers/thunk";
@@ -11,17 +10,17 @@ export interface State extends Omit<StatePreferences, "sortBy" | "order">{
     data: UserMeta;
 }
 
-export const set = createAsyncThunk<UserMeta, PIDR, { rejectValue: Error }>(
+export const set = createAsyncThunk<UserMeta, undefined, { rejectValue: Error }>(
     `core/user/set`,
-    asyncThunkPayloadCreator(async (pid) => {
-        return await dataApi.get(`/data/users/${pid}`);
+    asyncThunkPayloadCreator(async () => {
+        return await dataApi.get(`/data/user`);
     })
 );
 
-export const update = createAsyncThunk<UserMeta, UserUpdatePayload & PIDI, { rejectValue: Error }>(
+export const update = createAsyncThunk<UserMeta, UserUpdatePayload, { rejectValue: Error }>(
     `core/user/update`,
-    asyncThunkPayloadCreator(async ({ pid, ...body }) => {
-        return await dataApi.post(`/data/users/${pid}`, body);
+    asyncThunkPayloadCreator(async (body) => {
+        return await dataApi.post(`/data/user`, body);
     })
 );
 
