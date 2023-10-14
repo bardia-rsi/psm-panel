@@ -64,10 +64,7 @@ const Header: FC<Props> = ({ page, item, logo, title, link, setPrevItem }): Reac
     return (
         <div className="flex items-center gap-x-3 xs:gap-x-4 px-2 pt-4 pb-2">
             <Logo {...logo}
-                  className={cn(
-                      "transition shadow-xl shadow-black/15 dark:shadow-black/50",
-                      logo.className
-                  )} />
+                  className={cn("transition shadow-xl shadow-black/15 dark:shadow-black/50", logo.className)}/>
             <div className="flex flex-col flex-1 justify-evenly overflow-hidden">
                 <h3 className="text-xl xs:text-3xl whitespace-nowrap overflow-hidden text-ellipsis">{ title }</h3>
                 {
