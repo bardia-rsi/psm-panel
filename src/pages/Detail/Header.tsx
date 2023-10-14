@@ -70,12 +70,12 @@ const Header: FC<Props> = ({ page, item, logo, title, link, setPrevItem }): Reac
                 {
                     link && (
                         <span className="text-link whitespace-nowrap overflow-hidden text-ellipsis">
-                                                <a href={link}
-                                                   target="_blank"
-                                                   className="text-link border-b border-b-transparent hover:border-b-link">
-                                                { link.replace(/^https?:\/\//, "") }
-                                            </a>
-                                            </span>
+                            <a href={link}
+                               target="_blank"
+                               className="text-link border-b border-b-transparent hover:border-b-link">
+                                { link.replace(/^https?:\/\//, "") }
+                            </a>
+                        </span>
                     )
                 }
             </div>
