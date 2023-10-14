@@ -13,7 +13,7 @@ const Container: FC<Props> = ({ children }): ReactElement => {
 
     return (
         <motion.div className={cn(
-            "w-full lg:w-auto min-h-screen max-h-screen bg-primary flex lg:flex-1 flex-col py-4 px-3 xs:px-8",
+            "w-full lg:w-auto min-h-full max-h-full bg-primary flex lg:flex-1 flex-col py-4 px-3 xs:px-8",
             "lg:border-l-2 lg:border-l-primary overflow-y-auto",
             isLgScreen && "absolute top-0 left-0 z-20"
         )}
