@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 
 const defaultTheme = require('tailwindcss/defaultTheme');
+const plugin = require('tailwindcss/plugin');
 
 module.exports = {
   content: ["./src/**/*.{ts,tsx}"],
@@ -11,6 +12,9 @@ module.exports = {
       body: ["var(--font-nunito-sans)", ...defaultTheme.fontFamily.sans]
     },
     extend: {
+      screens: {
+        "xs": "480px"
+      },
       backgroundColor: {
         primary: "rgb(var(--bg-primary) / <alpha-value>)",
         secondary: "rgb(var(--bg-secondary) / <alpha-value>)",
@@ -44,5 +48,14 @@ module.exports = {
       }
     }
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addVariant }) {
+      addVariant('first-child', "&:first-child");
+      addVariant('last-child', "&:last-child");
+    }),
+    plugin(function ({ addVariant }) {
+      addVariant('odd-child', "&>*:nth-child(odd)");
+      addVariant('even-child', "&>*:nth-child(even)");
+    })
+  ],
 }
